@@ -1,0 +1,61 @@
+name: CrazySpawnerAI
+main: de.st_ddt.crazyspawner.ai.CrazySpawnerAI
+author: ST-DDT
+version: 4.3.2
+website: http://dev.bukkit.org/server-mods/crazyspawner/
+# requires CrazyCore v10.7.7 or later
+# requires CrazySpawner v4.3.2 or later
+depend: [CrazyCore,CrazySpawner]
+description: >
+            CrazySpawnerAI improve your mob's AI.
+commands:
+  crazyspawnerai:
+    description: Plugin Mainmenu
+    usage: /<command> [Subcommands...]
+    aliases: [cspawnerai]
+permissions:
+  crazyspawnerai.*:
+    description: Access to all permissions belonging to this plugin.
+    default: op
+    children:
+      crazycore.protectedplayer: true
+      crazyspawnerai.help: true
+      crazyspawnerai.info: true
+      crazyspawnerai.logger: true
+      crazyspawnerai.mode: true
+      crazyspawnerai.mode.*: true
+      crazyspawnerai.reload: true
+      crazyspawnerai.reload.*: true
+      crazyspawnerai.reload.config: true
+      crazyspawnerai.save: true
+      crazyspawnerai.save.*: true
+  crazyspawnerai.help:
+    description: No description available.
+    default: op
+  crazyspawnerai.info:
+    description: No description available.
+    default: op
+  crazyspawnerai.logger:
+    description: No description available.
+    default: op
+  crazyspawnerai.mode:
+    description: No description available.
+    default: op
+  crazyspawnerai.mode.*:
+    description: No description available.
+    default: op
+  crazyspawnerai.reload:
+    description: No description available.
+    default: op
+  crazyspawnerai.reload.*:
+    description: No description available.
+    default: op
+  crazyspawnerai.reload.config:
+    description: No description available.
+    default: op
+  crazyspawnerai.save:
+    description: No description available.
+    default: op
+  crazyspawnerai.save.*:
+    description: No description available.
+    default: op
