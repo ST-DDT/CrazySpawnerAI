@@ -10,7 +10,7 @@ import org.bukkit.entity.Entity;
 import de.st_ddt.crazyspawner.entities.util.ai.ActionHelper;
 import de.st_ddt.crazyutil.comparators.EntityDistanceComparator;
 import de.st_ddt.crazyutil.conditions.Condition;
-import de.st_ddt.crazyutil.conditions.checker.EntityConditionChecker.SimpleEntityConditionChecker;
+import de.st_ddt.crazyutil.conditions.checker.EntityAndEntityBoundEntityAIGoalConditionChecker.SimpleEntityAndEntityBoundEntityAIGoalConditionChecker;
 
 public class WatchClosestGoal extends BasicGoal
 {
@@ -56,6 +56,12 @@ public class WatchClosestGoal extends BasicGoal
 		ActionHelper.getNavigation(entity).lookAt(watched, yawRotationSpeed, pitchRotationSpeed);
 	}
 
+	@Override
+	public void update()
+	{
+		start();
+	}
+
 	protected Entity searchWatchable()
 	{
 		final List<Entity> possibilites = new ArrayList<>();
@@ -70,6 +76,12 @@ public class WatchClosestGoal extends BasicGoal
 
 	protected boolean matchesCondition(final Entity target)
 	{
-		return target != null && !target.equals(entity) && target.isValid() && watchedCondition.check(new SimpleEntityConditionChecker(target));
+		return target != null && !target.equals(entity) && target.isValid() && watchedCondition.check(new SimpleEntityAndEntityBoundEntityAIGoalConditionChecker(target, this));
+	}
+
+	@Override
+	public String toString()
+	{
+		return "CSAI_" + getClass().getSimpleName() + "{Entity: " + entity.getUniqueId().toString() + "; Condition: " + watchedCondition.toString() + "}";
 	}
 }
