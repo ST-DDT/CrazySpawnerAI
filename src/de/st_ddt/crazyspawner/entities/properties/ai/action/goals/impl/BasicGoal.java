@@ -2,9 +2,9 @@ package de.st_ddt.crazyspawner.entities.properties.ai.action.goals.impl;
 
 import org.bukkit.entity.Creature;
 
-import de.st_ddt.crazyspawner.entities.properties.ai.action.goals.Goal;
+import de.st_ddt.crazyspawner.entities.properties.ai.action.goals.EntityBoundGoal;
 
-public abstract class BasicGoal implements Goal
+public abstract class BasicGoal implements EntityBoundGoal
 {
 
 	protected final Creature entity;
@@ -15,6 +15,7 @@ public abstract class BasicGoal implements Goal
 		this.entity = entity;
 	}
 
+	@Override
 	public final Creature getEntity()
 	{
 		return entity;
