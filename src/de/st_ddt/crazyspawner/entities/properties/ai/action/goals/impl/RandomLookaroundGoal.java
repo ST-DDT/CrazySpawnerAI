@@ -26,7 +26,7 @@ public class RandomLookaroundGoal extends BasicGoal
 		if (started)
 			return time >= 0;
 		else
-			return RANDOM.nextFloat() < 0.02F;
+			return true;
 	}
 
 	@Override
