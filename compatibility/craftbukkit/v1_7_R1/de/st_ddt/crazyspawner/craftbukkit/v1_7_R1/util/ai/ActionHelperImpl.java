@@ -64,9 +64,9 @@ public class ActionHelperImpl implements ActionHelperInterface
 			_goalSelector = mcEntityClass.getDeclaredField("goalSelector");
 			_goalSelector.setAccessible(true);
 			final Class<?> mcGoalSelectorClass = PathfinderGoalSelector.class;
-			_pathfinderGoalSelectorItemList = mcGoalSelectorClass.getDeclaredField("a");
+			_pathfinderGoalSelectorItemList = mcGoalSelectorClass.getDeclaredField("b");
 			_pathfinderGoalSelectorItemList.setAccessible(true);
-			_currentPathfinderGoalSelectorItemList = mcGoalSelectorClass.getDeclaredField("b");
+			_currentPathfinderGoalSelectorItemList = mcGoalSelectorClass.getDeclaredField("c");
 			_currentPathfinderGoalSelectorItemList.setAccessible(true);
 			final Class<?> mcGoalSelectorItemClass = Class.forName("net.minecraft.server.v1_7_R1.PathfinderGoalSelectorItem");
 			_pathfinderGoal = mcGoalSelectorItemClass.getDeclaredField("a");
