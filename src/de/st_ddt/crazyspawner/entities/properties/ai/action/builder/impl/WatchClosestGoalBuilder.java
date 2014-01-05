@@ -1,14 +1,20 @@
 package de.st_ddt.crazyspawner.entities.properties.ai.action.builder.impl;
 
+import java.util.Collection;
+
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Creature;
+import org.bukkit.entity.EntityType;
 
 import de.st_ddt.crazyspawner.entities.properties.ai.action.goals.Goal;
 import de.st_ddt.crazyspawner.entities.properties.ai.action.goals.impl.WatchClosestGoal;
 import de.st_ddt.crazyspawner.entities.util.ai.Navigation;
 import de.st_ddt.crazyutil.conditions.BasicCondition;
 import de.st_ddt.crazyutil.conditions.Condition;
+import de.st_ddt.crazyutil.conditions.Condition_AND;
 import de.st_ddt.crazyutil.conditions.Condition_TRUE;
+import de.st_ddt.crazyutil.conditions.entity.Condition_Entity_Type;
+import de.st_ddt.crazyutil.conditions.entity.ai.goal.Condition_Entity_AI_Goal_Distance;
 
 public class WatchClosestGoalBuilder extends BasicGoalBuilder
 {
@@ -23,6 +29,36 @@ public class WatchClosestGoalBuilder extends BasicGoalBuilder
 		this.watchCondition = new Condition_TRUE();
 		this.yawRotationSpeed = Navigation.DEFAULTROTATIONSPEED;
 		this.pitchRotationSpeed = Navigation.DEFAULTROTATIONSPEED;
+	}
+
+	public WatchClosestGoalBuilder(final double maxDistance, final EntityType... types)
+	{
+		super();
+		final Condition_AND condition = new Condition_AND();
+		condition.getConditions().add(new Condition_Entity_AI_Goal_Distance(maxDistance));
+		condition.getConditions().add(new Condition_Entity_Type(types));
+		this.watchCondition = condition;
+		this.yawRotationSpeed = Navigation.DEFAULTROTATIONSPEED;
+		this.pitchRotationSpeed = Navigation.DEFAULTROTATIONSPEED;
+	}
+
+	public WatchClosestGoalBuilder(final double maxDistance, final Collection<EntityType> types)
+	{
+		super();
+		final Condition_AND condition = new Condition_AND();
+		condition.getConditions().add(new Condition_Entity_AI_Goal_Distance(maxDistance));
+		condition.getConditions().add(new Condition_Entity_Type(types));
+		this.watchCondition = condition;
+		this.yawRotationSpeed = Navigation.DEFAULTROTATIONSPEED;
+		this.pitchRotationSpeed = Navigation.DEFAULTROTATIONSPEED;
+	}
+
+	public WatchClosestGoalBuilder(final Condition watchCondition, final double yawRotationSpeed, final double pitchRotationSpeed)
+	{
+		super();
+		this.watchCondition = watchCondition;
+		this.yawRotationSpeed = yawRotationSpeed;
+		this.pitchRotationSpeed = pitchRotationSpeed;
 	}
 
 	public WatchClosestGoalBuilder(final ConfigurationSection config)
