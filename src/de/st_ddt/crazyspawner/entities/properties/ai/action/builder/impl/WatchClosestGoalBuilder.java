@@ -88,7 +88,7 @@ public class WatchClosestGoalBuilder extends BasicGoalBuilder
 	@Override
 	public Goal build(final Creature entity)
 	{
-		return new WatchClosestGoal(entity, watchCondition, 0, 0);
+		return new WatchClosestGoal(entity, watchCondition, yawRotationSpeed, pitchRotationSpeed);
 	}
 
 	@Override
