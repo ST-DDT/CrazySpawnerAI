@@ -41,5 +41,6 @@ public class RandomLookaroundGoal extends BasicGoal
 	public void update()
 	{
 		ActionHelper.getNavigation(entity).lookAt(entity.getEyeLocation().add(target), Navigation.DEFAULTROTATIONSPEED, Navigation.DEFAULTROTATIONSPEED);
+		time--;
 	}
 }
