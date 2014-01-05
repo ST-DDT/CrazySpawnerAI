@@ -1,6 +1,5 @@
 package de.st_ddt.crazyspawner.entities.util.ai;
 
-
 public abstract class BasicGoalInformation<P> implements GoalInformation
 {
 
