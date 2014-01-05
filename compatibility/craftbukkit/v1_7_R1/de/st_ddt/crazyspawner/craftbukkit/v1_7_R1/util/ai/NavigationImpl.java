@@ -7,6 +7,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.util.Vector;
 
+import de.st_ddt.crazyspawner.entities.properties.VelocityProperty;
 import de.st_ddt.crazyspawner.entities.util.ai.Navigation;
 
 public class NavigationImpl implements Navigation
@@ -106,7 +107,7 @@ public class NavigationImpl implements Navigation
 	@Override
 	public void lookAt(final Location target, final double yawRotationSpeed, final double pitchRotationSpeed)
 	{
-		creature.getControllerLook().a(target.getX(), target.getY(), target.getZ(), (float) yawRotationSpeed, (float) pitchRotationSpeed);
+		creature.getControllerLook().a(target.getX(), target.getY(), target.getZ(), (float) VelocityProperty.radToDeg(yawRotationSpeed), (float) VelocityProperty.radToDeg(pitchRotationSpeed));
 	}
 
 	@Override
