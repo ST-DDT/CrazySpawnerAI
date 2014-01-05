@@ -11,10 +11,10 @@ public class GoalEntry implements ConfigurationSaveable
 
 	public static GoalEntry load(final ConfigurationSection config) throws Throwable
 	{
-		if (config==null)
+		if (config == null)
 			throw new IllegalArgumentException("ConfigurationSection cannot be NULL!");
-		final GoalBuilder builder=BasicGoalBuilder.load(config.getConfigurationSection("goal"));
-		final int priority=config.getInt("priority", 100);
+		final GoalBuilder builder = BasicGoalBuilder.load(config.getConfigurationSection("goal"));
+		final int priority = config.getInt("priority", 100);
 		return new GoalEntry(builder, priority);
 	}
 
