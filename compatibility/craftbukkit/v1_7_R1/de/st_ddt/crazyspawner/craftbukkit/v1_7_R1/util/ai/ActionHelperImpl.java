@@ -123,7 +123,7 @@ public class ActionHelperImpl implements ActionHelperInterface
 		return (List<?>) pathfinderGoalSelectorItemList.get(getGoalSelector(creature));
 	}
 
-	protected List<?> getTemporatySelectorItemsList(final EntityCreature creature) throws Exception
+	protected List<?> getTemporarySelectorItemsList(final EntityCreature creature) throws Exception
 	{
 		return (List<?>) currentPathfinderGoalSelectorItemList.get(getGoalSelector(creature));
 	}
@@ -152,7 +152,7 @@ public class ActionHelperImpl implements ActionHelperInterface
 	{
 		final EntityCreature creature = getHandle(entity);
 		getGoalSelectorItemsList(creature).clear();
-		getTemporatySelectorItemsList(creature).clear();
+		getTemporarySelectorItemsList(creature).clear();
 	}
 
 	@Override
