@@ -70,6 +70,6 @@ public class WatchClosestGoal extends BasicGoal
 
 	protected boolean matchesCondition(final Entity target)
 	{
-		return target != null && target.isValid() && watchedCondition.check(new SimpleEntityConditionChecker(target));
+		return target != null && !target.equals(entity) && target.isValid() && watchedCondition.check(new SimpleEntityConditionChecker(target));
 	}
 }
