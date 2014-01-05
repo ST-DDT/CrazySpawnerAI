@@ -1,6 +1,7 @@
 package de.st_ddt.crazyspawner.entities.properties.ai;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,23 @@ public class CreatureActionSetProperty extends BasicProperty
 	{
 		super();
 		this.goalEntries = null;
+	}
+
+	public CreatureActionSetProperty(final GoalEntry... goals)
+	{
+		super();
+		this.goalEntries = new ArrayList<>();
+		for (final GoalEntry goal : goals)
+			this.goalEntries.add(goal);
+	}
+
+	public CreatureActionSetProperty(final Collection<GoalEntry> goals)
+	{
+		super();
+		if (goals == null)
+			this.goalEntries = null;
+		else
+			this.goalEntries = new ArrayList<>(goals);
 	}
 
 	public CreatureActionSetProperty(final ConfigurationSection config)
