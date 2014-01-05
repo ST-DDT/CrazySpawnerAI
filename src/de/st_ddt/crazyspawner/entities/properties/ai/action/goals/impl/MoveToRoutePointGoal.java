@@ -18,7 +18,7 @@ public class MoveToRoutePointGoal extends BasicGoal
 
 	public MoveToRoutePointGoal(final Creature entity, final RoutePoint target, final double speed)
 	{
-		super(entity);
+		super(entity, MUTEX_FLAG_MOVE);
 		this.target = target;
 		this.speed = speed;
 	}

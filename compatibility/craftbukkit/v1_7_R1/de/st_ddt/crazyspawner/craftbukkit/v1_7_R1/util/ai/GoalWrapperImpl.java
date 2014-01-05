@@ -13,6 +13,8 @@ public final class GoalWrapperImpl extends PathfinderGoal implements GoalWrapper
 	{
 		super();
 		this.goal = goal;
+		// Set Mutex
+		a(goal.getMutexBitFlags());
 	}
 
 	@Override
@@ -85,5 +87,11 @@ public final class GoalWrapperImpl extends PathfinderGoal implements GoalWrapper
 	public void reset()
 	{
 		goal.reset();
+	}
+
+	@Override
+	public int getMutexBitFlags()
+	{
+		return goal.getMutexBitFlags();
 	}
 }

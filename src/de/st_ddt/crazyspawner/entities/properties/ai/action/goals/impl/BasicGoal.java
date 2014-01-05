@@ -8,11 +8,13 @@ public abstract class BasicGoal implements EntityBoundGoal
 {
 
 	protected final Creature entity;
+	private final int mutexBitFlags;
 
-	public BasicGoal(final Creature entity)
+	public BasicGoal(final Creature entity, final int mutexBitFlags)
 	{
 		super();
 		this.entity = entity;
+		this.mutexBitFlags = mutexBitFlags;
 	}
 
 	@Override
@@ -41,6 +43,12 @@ public abstract class BasicGoal implements EntityBoundGoal
 	@Override
 	public void reset()
 	{
+	}
+
+	@Override
+	public int getMutexBitFlags()
+	{
+		return mutexBitFlags;
 	}
 
 	@Override

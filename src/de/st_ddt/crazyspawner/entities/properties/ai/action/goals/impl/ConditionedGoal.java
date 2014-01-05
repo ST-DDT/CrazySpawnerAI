@@ -15,7 +15,7 @@ public final class ConditionedGoal extends BasicGoal
 
 	public ConditionedGoal(final Creature entity, final Condition startCondition, final Condition continueCondition, final Goal goal)
 	{
-		super(entity);
+		super(entity, goal.getMutexBitFlags());
 		this.startCondition = startCondition;
 		this.continueCondition = continueCondition;
 		this.goal = goal;

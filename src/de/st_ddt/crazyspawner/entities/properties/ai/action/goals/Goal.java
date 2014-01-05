@@ -7,6 +7,15 @@ public interface Goal
 {
 
 	/**
+	 * This flag expresses that the goal influences the entity's movement.
+	 */
+	public final static int MUTEX_FLAG_MOVE = 1;
+	/**
+	 * This flag expresses that the goal influences the entity's look.
+	 */
+	public final static int MUTEX_FLAG_LOOK = 2;
+
+	/**
 	 * Checks whether this goal should (still) be executed or not.
 	 * 
 	 * @param started
@@ -37,4 +46,12 @@ public interface Goal
 	 * Resets this goal.
 	 */
 	public void reset();
+
+	/**
+	 * This method prevents goals executing simultaneously actions that will overwrite each other.<br>
+	 * For example look at entity and random lookaround.
+	 * 
+	 * @return The Mutex Bit Flags of this goal.
+	 */
+	public int getMutexBitFlags();
 }

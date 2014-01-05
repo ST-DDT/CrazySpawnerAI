@@ -17,7 +17,7 @@ public class RandomLookaroundGoal extends BasicGoal
 
 	public RandomLookaroundGoal(final Creature entity)
 	{
-		super(entity);
+		super(entity, MUTEX_FLAG_LOOK);
 	}
 
 	@Override

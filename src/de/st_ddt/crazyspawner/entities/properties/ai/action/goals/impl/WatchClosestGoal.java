@@ -24,7 +24,7 @@ public class WatchClosestGoal extends BasicGoal
 
 	public WatchClosestGoal(final Creature entity, final Condition watchedCondition, final double yawRotationSpeed, final double pitchRotationSpeed)
 	{
-		super(entity);
+		super(entity, MUTEX_FLAG_LOOK);
 		this.watchedCondition = watchedCondition;
 		this.yawRotationSpeed = yawRotationSpeed;
 		this.pitchRotationSpeed = pitchRotationSpeed;

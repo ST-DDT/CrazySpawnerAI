@@ -12,6 +12,8 @@ public final class PathfinderGoalGoalLinkerImpl extends PathfinderGoal implement
 	{
 		super();
 		this.goal = goal;
+		// Set Mutex
+		a(goal.j());
 	}
 
 	@Override
@@ -87,5 +89,11 @@ public final class PathfinderGoalGoalLinkerImpl extends PathfinderGoal implement
 	public void reset()
 	{
 		goal.d();
+	}
+
+	@Override
+	public int getMutexBitFlags()
+	{
+		return goal.j();
 	}
 }

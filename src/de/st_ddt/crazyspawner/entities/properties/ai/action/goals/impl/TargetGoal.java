@@ -20,7 +20,7 @@ public class TargetGoal extends BasicGoal
 
 	public TargetGoal(final Creature entity, final Condition condition)
 	{
-		super(entity);
+		super(entity, 0);
 		this.condition = condition;
 	}
 

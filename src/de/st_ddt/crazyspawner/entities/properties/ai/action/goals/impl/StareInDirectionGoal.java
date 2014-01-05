@@ -13,7 +13,7 @@ public class StareInDirectionGoal extends BasicGoal
 
 	public StareInDirectionGoal(final Creature entity, final Vector direction)
 	{
-		super(entity);
+		super(entity, MUTEX_FLAG_LOOK);
 		this.direction = direction;
 	}
 
