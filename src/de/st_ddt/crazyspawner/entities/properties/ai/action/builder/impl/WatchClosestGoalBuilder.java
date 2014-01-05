@@ -13,6 +13,7 @@ import de.st_ddt.crazyutil.conditions.BasicCondition;
 import de.st_ddt.crazyutil.conditions.Condition;
 import de.st_ddt.crazyutil.conditions.Condition_AND;
 import de.st_ddt.crazyutil.conditions.Condition_TRUE;
+import de.st_ddt.crazyutil.conditions.checker.EntityAndEntityBoundEntityAIGoalConditionChecker;
 import de.st_ddt.crazyutil.conditions.entity.Condition_Entity_Type;
 import de.st_ddt.crazyutil.conditions.entity.ai.goal.Condition_Entity_AI_Goal_Distance;
 
@@ -56,6 +57,7 @@ public class WatchClosestGoalBuilder extends BasicGoalBuilder
 	public WatchClosestGoalBuilder(final Condition watchCondition, final double yawRotationSpeed, final double pitchRotationSpeed)
 	{
 		super();
+		verifyCondition(watchCondition);
 		this.watchCondition = watchCondition;
 		this.yawRotationSpeed = yawRotationSpeed;
 		this.pitchRotationSpeed = pitchRotationSpeed;
@@ -68,6 +70,7 @@ public class WatchClosestGoalBuilder extends BasicGoalBuilder
 		try
 		{
 			watchCondition = BasicCondition.load(config.getConfigurationSection("watchCondition"));
+			verifyCondition(watchCondition);
 		}
 		catch (final Exception e)
 		{
@@ -77,6 +80,12 @@ public class WatchClosestGoalBuilder extends BasicGoalBuilder
 		this.watchCondition = watchCondition;
 		this.yawRotationSpeed = Math.max(config.getDouble("yawRotationSpeed", Navigation.DEFAULTROTATIONSPEED), 0);
 		this.pitchRotationSpeed = Math.max(config.getDouble("pitchRotationSpeed", Navigation.DEFAULTROTATIONSPEED), 0);
+	}
+
+	private void verifyCondition(final Condition condition)
+	{
+		if (!condition.isApplicable(EntityAndEntityBoundEntityAIGoalConditionChecker.class))
+			throw new IllegalArgumentException("Condition not applicable to EntityAndEntityBoundEntityAIGoalConditionChecker");
 	}
 
 	@Override
