@@ -53,4 +53,10 @@ public final class ConditionedGoal extends BasicGoal
 	{
 		goal.reset();
 	}
+
+	@Override
+	public int getMutexBitFlags()
+	{
+		return goal.getMutexBitFlags();
+	}
 }
