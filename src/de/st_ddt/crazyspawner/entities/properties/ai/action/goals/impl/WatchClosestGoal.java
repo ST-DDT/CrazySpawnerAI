@@ -7,10 +7,12 @@ import java.util.List;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 
+import de.st_ddt.crazyspawner.entities.properties.ai.action.goals.EntityBoundGoal;
 import de.st_ddt.crazyspawner.entities.util.ai.ActionHelper;
 import de.st_ddt.crazyutil.comparators.EntityDistanceComparator;
 import de.st_ddt.crazyutil.conditions.Condition;
-import de.st_ddt.crazyutil.conditions.checker.EntityAndEntityBoundEntityAIGoalConditionChecker.SimpleEntityAndEntityBoundEntityAIGoalConditionChecker;
+import de.st_ddt.crazyutil.conditions.ConditionHelper;
+import de.st_ddt.crazyutil.conditions.ExtendedConditionHelper;
 
 public class WatchClosestGoal extends BasicGoal
 {
@@ -25,7 +27,7 @@ public class WatchClosestGoal extends BasicGoal
 	public WatchClosestGoal(final Creature entity, final Condition watchedCondition, final double yawRotationSpeed, final double pitchRotationSpeed)
 	{
 		super(entity, MUTEX_FLAG_LOOK);
-		this.watchedCondition = watchedCondition;
+		this.watchedCondition = ExtendedConditionHelper.simpleSecure(watchedCondition, Entity.class, EntityBoundGoal.class);
 		this.yawRotationSpeed = yawRotationSpeed;
 		this.pitchRotationSpeed = pitchRotationSpeed;
 	}
@@ -76,7 +78,7 @@ public class WatchClosestGoal extends BasicGoal
 
 	protected boolean matchesCondition(final Entity target)
 	{
-		return target != null && !target.equals(entity) && target.isValid() && watchedCondition.check(new SimpleEntityAndEntityBoundEntityAIGoalConditionChecker(target, this));
+		return target != null && !target.equals(entity) && target.isValid() && ConditionHelper.simpleCheck(watchedCondition, target, this);
 	}
 
 	@Override

@@ -4,7 +4,7 @@ import org.bukkit.entity.Creature;
 
 import de.st_ddt.crazyspawner.entities.properties.ai.action.goals.Goal;
 import de.st_ddt.crazyutil.conditions.Condition;
-import de.st_ddt.crazyutil.conditions.checker.CreatureConditionChecker.SimpleCreatureConditionChecker;
+import de.st_ddt.crazyutil.conditions.ConditionHelper;
 
 public final class ConditionedGoal extends BasicGoal
 {
@@ -16,7 +16,7 @@ public final class ConditionedGoal extends BasicGoal
 	public ConditionedGoal(final Creature entity, final Condition startCondition, final Condition continueCondition, final Goal goal)
 	{
 		super(entity, goal.getMutexBitFlags());
-		this.startCondition = startCondition;
+		this.startCondition = startCondition.secure(ConditionHelper.simpleParameterClasses(Creature.class));
 		this.continueCondition = continueCondition;
 		this.goal = goal;
 	}
@@ -25,9 +25,9 @@ public final class ConditionedGoal extends BasicGoal
 	public boolean shouldExecute(final boolean started)
 	{
 		if (started)
-			return continueCondition.check(new SimpleCreatureConditionChecker(entity)) && goal.shouldExecute(true);
+			return continueCondition.check(ConditionHelper.simpleParameters(entity)) && goal.shouldExecute(true);
 		else
-			return startCondition.check(new SimpleCreatureConditionChecker(entity)) && goal.shouldExecute(false);
+			return startCondition.check(ConditionHelper.simpleParameters(entity)) && goal.shouldExecute(false);
 	}
 
 	@Override

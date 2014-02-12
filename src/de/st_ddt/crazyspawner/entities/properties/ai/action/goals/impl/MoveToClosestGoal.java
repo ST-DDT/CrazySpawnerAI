@@ -10,7 +10,8 @@ import org.bukkit.entity.Entity;
 import de.st_ddt.crazyspawner.entities.util.ai.ActionHelper;
 import de.st_ddt.crazyutil.comparators.EntityDistanceComparator;
 import de.st_ddt.crazyutil.conditions.Condition;
-import de.st_ddt.crazyutil.conditions.checker.EntityAndEntityBoundEntityAIGoalConditionChecker.SimpleEntityAndEntityBoundEntityAIGoalConditionChecker;
+import de.st_ddt.crazyutil.conditions.ConditionHelper;
+import de.st_ddt.crazyutil.conditions.ExtendedConditionHelper;
 
 public class MoveToClosestGoal extends BasicGoal
 {
@@ -21,10 +22,10 @@ public class MoveToClosestGoal extends BasicGoal
 	protected Entity moveTo;
 	protected long lastSearched;
 
-	public MoveToClosestGoal(final Creature entity, final Condition condition, final double speed)
+	public MoveToClosestGoal(final Creature entity, final Condition moveToCondition, final double speed)
 	{
 		super(entity, MUTEX_FLAG_MOVE);
-		this.moveToCondition = condition;
+		this.moveToCondition = ExtendedConditionHelper.simpleSecure(moveToCondition, Entity.class, MoveToClosestGoal.class);
 		this.speed = speed;
 	}
 
@@ -74,7 +75,7 @@ public class MoveToClosestGoal extends BasicGoal
 
 	protected boolean matchesCondition(final Entity target)
 	{
-		return target != null && !target.equals(entity) && target.isValid() && moveToCondition.check(new SimpleEntityAndEntityBoundEntityAIGoalConditionChecker(target, this));
+		return target != null && !target.equals(entity) && target.isValid() && moveToCondition.check(ConditionHelper.simpleParameters(target, this));
 	}
 
 	@Override

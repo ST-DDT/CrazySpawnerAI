@@ -9,19 +9,19 @@ import org.bukkit.entity.LivingEntity;
 
 import de.st_ddt.crazyutil.comparators.EntityDistanceComparator;
 import de.st_ddt.crazyutil.conditions.Condition;
-import de.st_ddt.crazyutil.conditions.checker.LivingEntityConditionChecker.SimpleLivingEntityConditionChecker;
+import de.st_ddt.crazyutil.conditions.ConditionHelper;
 
 public class TargetGoal extends BasicGoal
 {
 
-	protected final Condition condition;
+	protected final Condition targetCondition;
 	protected long lastSearched;
 	protected LivingEntity lastMatching;
 
-	public TargetGoal(final Creature entity, final Condition condition)
+	public TargetGoal(final Creature entity, final Condition targetCondition)
 	{
 		super(entity, 0);
-		this.condition = condition;
+		this.targetCondition = targetCondition.secure(ConditionHelper.simpleParameterClasses(LivingEntity.class));
 	}
 
 	@Override
@@ -85,6 +85,6 @@ public class TargetGoal extends BasicGoal
 
 	public boolean matchConditions(final LivingEntity entity)
 	{
-		return entity.isValid() && condition.check(new SimpleLivingEntityConditionChecker(entity));
+		return entity.isValid() && targetCondition.check(ConditionHelper.simpleParameters(entity));
 	}
 }

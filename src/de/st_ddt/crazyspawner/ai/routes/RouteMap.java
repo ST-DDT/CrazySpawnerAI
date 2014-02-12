@@ -29,8 +29,7 @@ import org.bukkit.entity.LivingEntity;
 
 import de.st_ddt.crazyutil.comparators.PathLengthComparator;
 import de.st_ddt.crazyutil.comparators.RoutePointDistanceComparator;
-import de.st_ddt.crazyutil.conditions.checker.ConditionChecker;
-import de.st_ddt.crazyutil.conditions.checker.LivingEntityConditionChecker.SimpleLivingEntityConditionChecker;
+import de.st_ddt.crazyutil.conditions.ConditionHelper;
 
 public class RouteMap
 {
@@ -196,7 +195,7 @@ public class RouteMap
 	 */
 	public Path searchPath(final LivingEntity entity, final RoutePoint start, final RoutePoint target)
 	{
-		final ConditionChecker conditionChecker = new SimpleLivingEntityConditionChecker(entity);
+		final Map<Integer, Object> parameters = ConditionHelper.simpleParameters(entity);
 		final Queue<Path> pathsStart = new PriorityQueue<>(100, PATHLENGTHCOMPARATOR);
 		final Path pathStart = new Path(start);
 		pathsStart.add(pathStart);
@@ -207,8 +206,8 @@ public class RouteMap
 		visitedStart.put(start, pathStart);
 		final Map<RoutePoint, Path> visitedTarget = Collections.synchronizedMap(new HashMap<RoutePoint, Path>());
 		visitedTarget.put(target, pathTarget);
-		final RouteCallable startCallable = new RouteCallable(pathsStart, conditionChecker, visitedStart, visitedTarget);
-		final RouteCallable targetCallable = new RouteCallable(pathsTarget, conditionChecker, visitedTarget, visitedStart);
+		final RouteCallable startCallable = new RouteCallable(pathsStart, parameters, visitedStart, visitedTarget);
+		final RouteCallable targetCallable = new RouteCallable(pathsTarget, parameters, visitedTarget, visitedStart);
 		// Actually search the path.
 		// This part is two threaded.
 		// One thread searches the path beginning with at the start point.
@@ -253,8 +252,8 @@ public class RouteMap
 	 *            The existing path to be continued.
 	 * @param pathQueue
 	 *            The path queue containing paths that should be checked next/later.
-	 * @param checker
-	 *            The checker used to validate whether the {@link RoutePoint}s can be accessed.
+	 * @param parameters
+	 *            The parameters used to validate whether the {@link RoutePoint}s can be accessed.
 	 * @param visitedLocal
 	 *            The {@link RoutePoint}s visited by the forward/local search and the shortest paths to them.
 	 * @param visitedRemote
@@ -263,7 +262,7 @@ public class RouteMap
 	 *         More specific the merged paths from the (first) RoutePoint available in both visited maps.<br>
 	 *         Null, if no Path is found.
 	 */
-	private static Path searchPath(final Path path, final Queue<Path> pathQueue, final ConditionChecker checker, final Map<RoutePoint, Path> visitedLocal, final Map<RoutePoint, Path> visitedRemote)
+	private static Path searchPath(final Path path, final Queue<Path> pathQueue, final Map<Integer, Object> parameters, final Map<RoutePoint, Path> visitedLocal, final Map<RoutePoint, Path> visitedRemote)
 	{
 		final RoutePoint startPathEnd = path.getTarget();
 		for (final RouteConnection connection : startPathEnd.getConnections())
@@ -275,7 +274,7 @@ public class RouteMap
 			remotePath = path.clone();
 			remotePath.addConnection(connection);
 			visitedLocal.put(remote, remotePath);
-			if (!remote.getAccessCondition().check(checker))
+			if (!remote.getAccessCondition().check(parameters))
 				continue;
 			final Path connectionPath = visitedRemote.get(remote);
 			if (connectionPath != null)
@@ -368,16 +367,16 @@ public class RouteMap
 	{
 
 		private final Queue<Path> pathQueue;
-		private final ConditionChecker checker;
+		private final Map<Integer, Object> parameters;
 		private final Map<RoutePoint, Path> visitedLokal;
 		private final Map<RoutePoint, Path> visitedRemote;
 		private Path path;
 
-		public RouteCallable(final Queue<Path> pathQueue, final ConditionChecker checker, final Map<RoutePoint, Path> visitedLokal, final Map<RoutePoint, Path> visitedRemote)
+		public RouteCallable(final Queue<Path> pathQueue, final Map<Integer, Object> parameters, final Map<RoutePoint, Path> visitedLokal, final Map<RoutePoint, Path> visitedRemote)
 		{
 			super();
 			this.pathQueue = pathQueue;
-			this.checker = checker;
+			this.parameters = parameters;
 			this.visitedLokal = visitedLokal;
 			this.visitedRemote = visitedRemote;
 		}
@@ -390,7 +389,7 @@ public class RouteMap
 		@Override
 		public Path call() throws Exception
 		{
-			return searchPath(path, pathQueue, checker, visitedLokal, visitedRemote);
+			return searchPath(path, pathQueue, parameters, visitedLokal, visitedRemote);
 		}
 	}
 }

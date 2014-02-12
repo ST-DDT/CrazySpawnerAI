@@ -5,10 +5,10 @@ import org.bukkit.entity.Creature;
 
 import de.st_ddt.crazyspawner.entities.properties.ai.action.builder.GoalBuilder;
 import de.st_ddt.crazyspawner.entities.properties.ai.action.goals.impl.ConditionedGoal;
-import de.st_ddt.crazyutil.conditions.BasicCondition;
 import de.st_ddt.crazyutil.conditions.Condition;
+import de.st_ddt.crazyutil.conditions.ConditionHelper;
 import de.st_ddt.crazyutil.conditions.Condition_TRUE;
-import de.st_ddt.crazyutil.conditions.checker.CreatureConditionChecker;
+import de.st_ddt.crazyutil.conditions.ExtendedConditionHelper;
 
 public final class ConditionedGoalBuilder extends BasicGoalBuilder
 {
@@ -30,16 +30,12 @@ public final class ConditionedGoalBuilder extends BasicGoalBuilder
 		super();
 		if (startCondition == null)
 			this.startCondition = new Condition_TRUE();
-		else if (startCondition.isApplicable(CreatureConditionChecker.class))
-			this.startCondition = startCondition;
 		else
-			throw new IllegalArgumentException("The startCondition is not applicable for Creatures!");
+			this.startCondition = startCondition.secure(ConditionHelper.simpleParameterClasses(Creature.class));
 		if (continueCondition == null)
 			this.continueCondition = new Condition_TRUE();
-		else if (continueCondition.isApplicable(CreatureConditionChecker.class))
-			this.continueCondition = continueCondition;
 		else
-			throw new IllegalArgumentException("The startCondition is not applicable for Creatures!");
+			this.continueCondition = continueCondition.secure(ConditionHelper.simpleParameterClasses(Creature.class));
 		this.builder = builder;
 	}
 
@@ -49,7 +45,8 @@ public final class ConditionedGoalBuilder extends BasicGoalBuilder
 		Condition startCondition = null;
 		try
 		{
-			startCondition = BasicCondition.load(config.getConfigurationSection("startCondition"));
+			startCondition = ConditionHelper.simpleLoad(config.getConfigurationSection("startCondition"), "Entity");
+			startCondition = ExtendedConditionHelper.simpleSecure(startCondition, Creature.class);
 		}
 		catch (final Exception e)
 		{
@@ -60,7 +57,8 @@ public final class ConditionedGoalBuilder extends BasicGoalBuilder
 		Condition continueCondition = null;
 		try
 		{
-			continueCondition = BasicCondition.load(config.getConfigurationSection("continueCondition"));
+			continueCondition = ConditionHelper.simpleLoad(config.getConfigurationSection("continueCondition"), "Entity");
+			continueCondition = ExtendedConditionHelper.simpleSecure(continueCondition, Creature.class);
 		}
 		catch (final Exception e)
 		{
@@ -97,8 +95,8 @@ public final class ConditionedGoalBuilder extends BasicGoalBuilder
 	public void save(final ConfigurationSection config, final String path)
 	{
 		super.save(config, path);
-		startCondition.save(config, path + "startCondition.");
-		continueCondition.save(config, path + "continueCondition.");
+		ConditionHelper.simpleSave(startCondition, config, path + "startCondition.", "Entity");
+		ConditionHelper.simpleSave(continueCondition, config, path + "continueCondition.", "Entity");
 		builder.save(config, path + "goal.");
 	}
 }

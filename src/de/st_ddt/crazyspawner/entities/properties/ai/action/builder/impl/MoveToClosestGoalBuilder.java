@@ -4,15 +4,16 @@ import java.util.Collection;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Creature;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 
 import de.st_ddt.crazyspawner.entities.properties.ai.action.goals.Goal;
 import de.st_ddt.crazyspawner.entities.properties.ai.action.goals.impl.MoveToClosestGoal;
-import de.st_ddt.crazyutil.conditions.BasicCondition;
 import de.st_ddt.crazyutil.conditions.Condition;
+import de.st_ddt.crazyutil.conditions.ConditionHelper;
 import de.st_ddt.crazyutil.conditions.Condition_AND;
 import de.st_ddt.crazyutil.conditions.Condition_TRUE;
-import de.st_ddt.crazyutil.conditions.checker.EntityAndEntityBoundEntityAIGoalConditionChecker;
+import de.st_ddt.crazyutil.conditions.ExtendedConditionHelper;
 import de.st_ddt.crazyutil.conditions.entity.Condition_Entity_Type;
 import de.st_ddt.crazyutil.conditions.entity.ai.goal.Condition_Entity_AI_Goal_Distance;
 
@@ -33,8 +34,8 @@ public class MoveToClosestGoalBuilder extends BasicGoalBuilder
 	{
 		super();
 		final Condition_AND condition = new Condition_AND();
-		condition.getConditions().add(new Condition_Entity_AI_Goal_Distance(maxDistance));
-		condition.getConditions().add(new Condition_Entity_Type(types));
+		condition.getConditions().add(new Condition_Entity_AI_Goal_Distance(0, 1, maxDistance));
+		condition.getConditions().add(new Condition_Entity_Type(0, types));
 		this.moveToCondition = condition;
 		this.speed = speed;
 	}
@@ -43,8 +44,8 @@ public class MoveToClosestGoalBuilder extends BasicGoalBuilder
 	{
 		super();
 		final Condition_AND condition = new Condition_AND();
-		condition.getConditions().add(new Condition_Entity_AI_Goal_Distance(maxDistance));
-		condition.getConditions().add(new Condition_Entity_Type(types));
+		condition.getConditions().add(new Condition_Entity_AI_Goal_Distance(0, 1, maxDistance));
+		condition.getConditions().add(new Condition_Entity_Type(0, types));
 		this.moveToCondition = condition;
 		this.speed = speed;
 	}
@@ -62,8 +63,8 @@ public class MoveToClosestGoalBuilder extends BasicGoalBuilder
 		Condition moveToCondition = null;
 		try
 		{
-			moveToCondition = BasicCondition.load(config.getConfigurationSection("moveToCondition"));
-			verifyCondition(moveToCondition);
+			moveToCondition = ConditionHelper.simpleLoad(config.getConfigurationSection("moveToCondition"), "Entity", "Goal");
+			moveToCondition = ExtendedConditionHelper.simpleSecure(moveToCondition, Entity.class, MoveToClosestGoal.class);
 		}
 		catch (final Exception e)
 		{
@@ -72,12 +73,6 @@ public class MoveToClosestGoalBuilder extends BasicGoalBuilder
 		}
 		this.moveToCondition = moveToCondition;
 		this.speed = Math.max(config.getDouble("speed", 1), 0);
-	}
-
-	private void verifyCondition(final Condition condition)
-	{
-		if (!condition.isApplicable(EntityAndEntityBoundEntityAIGoalConditionChecker.class))
-			throw new IllegalArgumentException("Condition not applicable to EntityAndEntityBoundEntityAIGoalConditionChecker");
 	}
 
 	@Override
@@ -96,7 +91,7 @@ public class MoveToClosestGoalBuilder extends BasicGoalBuilder
 	public void save(final ConfigurationSection config, final String path)
 	{
 		super.save(config, path);
-		moveToCondition.save(config, path + "moveToCondition.");
+		ConditionHelper.simpleSave(moveToCondition, config, path + "moveToCondition.", "Entity", "Goal");
 		config.set(path + "speed", speed);
 	}
 }

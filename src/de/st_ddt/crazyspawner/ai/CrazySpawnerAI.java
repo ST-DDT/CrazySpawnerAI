@@ -1,14 +1,25 @@
 package de.st_ddt.crazyspawner.ai;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.World;
 import org.bukkit.entity.Creature;
+import org.bukkit.entity.EntityType;
 
 import de.st_ddt.crazyplugin.CrazyPlugin;
+import de.st_ddt.crazyspawner.CrazySpawner;
 import de.st_ddt.crazyspawner.ai.routes.Path;
 import de.st_ddt.crazyspawner.ai.routes.RouteMap;
 import de.st_ddt.crazyspawner.ai.routes.RoutePoint;
+import de.st_ddt.crazyspawner.entities.CustomizedParentedSpawner;
+import de.st_ddt.crazyspawner.entities.NamedParentedSpawner;
 import de.st_ddt.crazyspawner.entities.properties.EntityPropertyHelper;
 import de.st_ddt.crazyspawner.entities.properties.ai.CreatureActionSetProperty;
+import de.st_ddt.crazyspawner.entities.properties.ai.action.GoalEntry;
+import de.st_ddt.crazyspawner.entities.properties.ai.action.builder.impl.MoveToClosestGoalBuilder;
+import de.st_ddt.crazyspawner.entities.properties.ai.action.builder.impl.RandomLookaroundGoalBuilder;
+import de.st_ddt.crazyspawner.entities.properties.ai.action.builder.impl.WatchClosestGoalBuilder;
 import de.st_ddt.crazyspawner.entities.util.ai.ActionHelper;
 import de.st_ddt.crazyutil.compatibility.CompatibilityLoader;
 import de.st_ddt.crazyutil.source.LocalizedVariable;
@@ -34,6 +45,21 @@ public class CrazySpawnerAI extends CrazyPlugin
 		EntityPropertyHelper.registerEntityProperty(CreatureActionSetProperty.class);
 		ActionHelper.initialize();
 		super.onLoad();
+	}
+
+	@Override
+	public void onEnable()
+	{
+		// Move to Example Class
+		final CustomizedParentedSpawner customizedSpawner = new CustomizedParentedSpawner(EntityType.ZOMBIE);
+		final List<GoalEntry> goalEntries = new ArrayList<>();
+		goalEntries.add(new GoalEntry(new WatchClosestGoalBuilder(5, EntityType.SKELETON), 1));
+		goalEntries.add(new GoalEntry(new MoveToClosestGoalBuilder(1, 10, EntityType.SKELETON), 2));
+		goalEntries.add(new GoalEntry(new WatchClosestGoalBuilder(15, EntityType.PLAYER), 2));
+		goalEntries.add(new GoalEntry(new RandomLookaroundGoalBuilder(), 3));
+		customizedSpawner.addEntityProperty(new CreatureActionSetProperty(goalEntries));
+		CrazySpawner.getPlugin().addCustomEntity(new NamedParentedSpawner(customizedSpawner, "AI_Zombie"));
+		super.onEnable();
 	}
 
 	public RouteMap getRouteMap(final World world)

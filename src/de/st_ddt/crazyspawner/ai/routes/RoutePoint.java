@@ -11,11 +11,10 @@ import org.bukkit.entity.LivingEntity;
 
 import de.st_ddt.crazyutil.ConfigurationSaveable;
 import de.st_ddt.crazyutil.ObjectSaveLoadHelper;
-import de.st_ddt.crazyutil.conditions.BasicCondition;
 import de.st_ddt.crazyutil.conditions.Condition;
+import de.st_ddt.crazyutil.conditions.ConditionHelper;
 import de.st_ddt.crazyutil.conditions.Condition_TRUE;
-import de.st_ddt.crazyutil.conditions.checker.LivingEntityConditionChecker;
-import de.st_ddt.crazyutil.conditions.checker.LivingEntityConditionChecker.SimpleLivingEntityConditionChecker;
+import de.st_ddt.crazyutil.conditions.ExtendedConditionHelper;
 import de.st_ddt.crazyutil.paramitrisable.LocationParamitrisable;
 
 public class RoutePoint implements ConfigurationSaveable
@@ -52,9 +51,7 @@ public class RoutePoint implements ConfigurationSaveable
 		this.location.setYaw(0);
 		this.location.setPitch(0);
 		this.name = name;
-		this.accessCondition = accessCondition;
-		if (!accessCondition.isApplicable(LivingEntityConditionChecker.class))
-			throw new IllegalArgumentException("The accessCondition must be applicable to LivingEntityConditionChecker");
+		this.accessCondition = ExtendedConditionHelper.simpleSecure(accessCondition, LivingEntity.class);
 		this.size = size;
 	}
 
@@ -69,9 +66,8 @@ public class RoutePoint implements ConfigurationSaveable
 		Condition condition = null;
 		try
 		{
-			condition = BasicCondition.load(config.getConfigurationSection("accessCondition"));
-			if (!condition.isApplicable(LivingEntityConditionChecker.class))
-				throw new IllegalArgumentException("The accessCondition must be applicable to LivingEntityConditionChecker");
+			condition = ConditionHelper.simpleLoad(config.getConfigurationSection("accessCondition"), "Entity");
+			condition = ExtendedConditionHelper.simpleSecure(condition, LivingEntity.class);
 		}
 		catch (final Exception e)
 		{
@@ -105,7 +101,7 @@ public class RoutePoint implements ConfigurationSaveable
 
 	public boolean hasAccess(final LivingEntity entity)
 	{
-		return accessCondition.check(new SimpleLivingEntityConditionChecker(entity));
+		return ConditionHelper.simpleCheck(accessCondition, entity);
 	}
 
 	public Condition getAccessCondition()
@@ -139,7 +135,7 @@ public class RoutePoint implements ConfigurationSaveable
 		config.set(path + "id", id);
 		ObjectSaveLoadHelper.saveLocation(config, path + "location.", location, false, false);
 		config.set(path + "name", name);
-		accessCondition.save(config, path + "condition.");
+		ConditionHelper.simpleSave(accessCondition, config, path + "condition.", "Entity");
 		config.set(path + "size", size);
 	}
 
