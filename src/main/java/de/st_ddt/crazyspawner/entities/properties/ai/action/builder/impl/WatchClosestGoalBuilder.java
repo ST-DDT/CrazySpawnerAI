@@ -4,9 +4,8 @@ import java.util.Collection;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Creature;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-
-import com.sun.xml.internal.stream.Entity;
 
 import de.st_ddt.crazyspawner.entities.properties.ai.action.goals.Goal;
 import de.st_ddt.crazyspawner.entities.properties.ai.action.goals.impl.WatchClosestGoal;
