@@ -1,13 +1,12 @@
-name: CrazySpawnerAI
+name: ${project.name}
 main: de.st_ddt.crazyspawner.ai.CrazySpawnerAI
 author: ST-DDT
-version: 0.1
-website: http://dev.bukkit.org/server-mods/crazyspawner/
-# requires CrazyCore v10.7.8 or later
-# requires CrazySpawner v4.3.2 or later
+version: ${project.version}
+website: ${project.url}
+# requires CrazyCore v${crazycore.version} or later
+# requires CrazySpawner v${crazyspawner.version} or later
 depend: [CrazyCore,CrazySpawner]
-description: >
-            CrazySpawnerAI improve your mob's AI.
+description: ${project.description}
 commands:
   crazyspawnerai:
     description: Plugin Mainmenu
