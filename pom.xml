@@ -24,8 +24,8 @@
 	<properties>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<crazycore.version>10.8-SNAPSHOT</crazycore.version>
-		<crazyspawner.version>4.5-SNAPSHOT</crazyspawner.version>
+		<crazycore.version>11.0-SNAPSHOT</crazycore.version>
+		<crazyspawner.version>5.0-SNAPSHOT</crazyspawner.version>
 	</properties>
 
 	<dependencies>

@@ -38,18 +38,19 @@ public class CrazySpawnerAI extends CrazyPlugin
 	}
 
 	@Override
-	public void onLoad()
+	public void initialize()
 	{
+		super.initialize();
 		plugin = this;
 		CompatibilityLoader.loadCompatibilityProvider(this, "de.st_ddt.crazyspawner.", ".ai");
 		EntityPropertyHelper.registerEntityProperty(CreatureActionSetProperty.class);
 		ActionHelper.initialize();
-		super.onLoad();
 	}
 
 	@Override
-	public void onEnable()
+	public void enable()
 	{
+		super.enable();
 		// Move to Example Class
 		final CustomizedParentedSpawner customizedSpawner = new CustomizedParentedSpawner(EntityType.ZOMBIE);
 		final List<GoalEntry> goalEntries = new ArrayList<>();
@@ -59,7 +60,6 @@ public class CrazySpawnerAI extends CrazyPlugin
 		goalEntries.add(new GoalEntry(new RandomLookaroundGoalBuilder(), 3));
 		customizedSpawner.addEntityProperty(new CreatureActionSetProperty(goalEntries));
 		CrazySpawner.getPlugin().addCustomEntity(new NamedParentedSpawner(customizedSpawner, "AI_Zombie"));
-		super.onEnable();
 	}
 
 	public RouteMap getRouteMap(final World world)
