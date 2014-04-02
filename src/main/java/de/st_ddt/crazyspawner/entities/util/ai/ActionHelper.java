@@ -100,7 +100,6 @@ public final class ActionHelper
 	 *            The {@link Creature} that should get a new goal.
 	 * @param information
 	 *            The new {@link GoalInformation} for this {@link Creature}.
-	 * @throws Exception
 	 */
 	public static void addGoal(final Creature creature, final GoalInformation goalInformation)
 	{
@@ -123,7 +122,6 @@ public final class ActionHelper
 	 *            The {@link Creature} that should get a new goal.
 	 * @param information
 	 *            The new {@link GoalInformation} for this {@link Creature}.
-	 * @throws Exception
 	 */
 	public static void addGoal(final Creature creature, final PathfinderGoalProvider goalProvider, final int priorityOverride)
 	{
