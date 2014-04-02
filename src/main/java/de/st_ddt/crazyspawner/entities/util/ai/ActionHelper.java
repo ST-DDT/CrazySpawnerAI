@@ -117,7 +117,7 @@ public final class ActionHelper
 
 	/**
 	 * Appends a goal to the {@link Creature}'s list of goals.<br>
-	 * DO NOT ADD OTHER CREATURES GOALS!
+	 * DO NOT ADD OTHER CREATURE'S GOALS!
 	 * 
 	 * @param entity
 	 *            The {@link Creature} that should get a new goal.
