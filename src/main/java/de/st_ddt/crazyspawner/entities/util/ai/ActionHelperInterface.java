@@ -21,8 +21,10 @@ public interface ActionHelperInterface
 	public Creature getEntity(Object entity);
 
 	/**
+	 * Removes all goals from this entity.
+	 * 
 	 * @param entity
-	 *            Removes all goals from this entity
+	 *            The entity which goals should be removed.
 	 */
 	public void clearGoals(Creature entity) throws Exception;
 
@@ -69,6 +71,13 @@ public interface ActionHelperInterface
 	 */
 	public List<? extends GoalInformation> getGoals(Creature entity) throws Exception;
 
+	/**
+	 * Returns a navigation controller for the given creature.
+	 * 
+	 * @param entity
+	 *            The entity which navigation controller should be returned,
+	 * @return The navigation controller for this entity.
+	 */
 	public Navigation getNavigation(Creature entity);
 
 	public void attack(Creature entity, Entity target) throws Exception;

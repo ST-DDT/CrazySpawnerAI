@@ -46,7 +46,7 @@ public interface Navigation
 	public void setEnterDoors(boolean enterDoors);
 
 	/**
-	 * Sets whether the path finder should avoid sunlight
+	 * Sets whether the path finder should avoid sunlight.
 	 * 
 	 * @param avoidSun
 	 *            Whether the path finder should avoid water.
@@ -55,7 +55,7 @@ public interface Navigation
 
 	/**
 	 * Sets the speed used to reach the current target.<br>
-	 * This value will be overwriten withe the next target specification.
+	 * This value will be overwritten with the next target specification.
 	 * 
 	 * @param speed
 	 *            The speed used to reach the current target.

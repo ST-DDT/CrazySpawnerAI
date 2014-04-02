@@ -5,7 +5,9 @@ import java.util.List;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 
+import de.st_ddt.crazyspawner.ai.CrazySpawnerAI;
 import de.st_ddt.crazyspawner.entities.properties.ai.action.builder.GoalBuilder;
+import de.st_ddt.crazyspawner.entities.properties.ai.action.goals.Goal;
 
 public final class ActionHelper
 {
@@ -16,6 +18,12 @@ public final class ActionHelper
 
 	private static ActionHelperInterface actionHelper;
 
+	/**
+	 * This method initializes this ActionHelper with a matching implementation of the required interface.<br>
+	 * This method will be called by {@link CrazySpawnerAI#initialize()}.
+	 * 
+	 * @return
+	 */
 	public static boolean initialize()
 	{
 		for (final Class<? extends ActionHelperInterface> clazz : ActionHelperInterface.ACTIONHELPERCLASSES)
@@ -44,6 +52,12 @@ public final class ActionHelper
 		return actionHelper.getEntity(entity);
 	}
 
+	/**
+	 * Removes all goals from this entity.
+	 * 
+	 * @param entity
+	 *            The entity which goals should be removed.
+	 */
 	public static void clearGoals(final Creature entity)
 	{
 		try
@@ -57,6 +71,14 @@ public final class ActionHelper
 		}
 	}
 
+	/**
+	 * Appends a goal to the {@link Creature}'s list of goals.
+	 * 
+	 * @param entity
+	 *            The {@link Creature} that should get a new goal.
+	 * @param goal
+	 *            The new {@link Goal} for this {@link Creature}.
+	 */
 	public static void addGoal(final Creature entity, final GoalBuilder goal, final int priority)
 	{
 		try
@@ -70,6 +92,16 @@ public final class ActionHelper
 		}
 	}
 
+	/**
+	 * Appends a goal to the {@link Creature}'s list of goals.<br>
+	 * DO NOT ADD OTHER CREATURES GOALS!
+	 * 
+	 * @param entity
+	 *            The {@link Creature} that should get a new goal.
+	 * @param information
+	 *            The new {@link GoalInformation} for this {@link Creature}.
+	 * @throws Exception
+	 */
 	public static void addGoal(final Creature creature, final GoalInformation goalInformation)
 	{
 		try
@@ -83,6 +115,16 @@ public final class ActionHelper
 		}
 	}
 
+	/**
+	 * Appends a goal to the {@link Creature}'s list of goals.<br>
+	 * DO NOT ADD OTHER CREATURES GOALS!
+	 * 
+	 * @param entity
+	 *            The {@link Creature} that should get a new goal.
+	 * @param information
+	 *            The new {@link GoalInformation} for this {@link Creature}.
+	 * @throws Exception
+	 */
 	public static void addGoal(final Creature creature, final PathfinderGoalProvider goalProvider, final int priorityOverride)
 	{
 		try
@@ -96,6 +138,13 @@ public final class ActionHelper
 		}
 	}
 
+	/**
+	 * Returns a list off goals this {@link Creature} tries to achieve.
+	 * 
+	 * @param entity
+	 *            The {@link Creature} whose {@link Goal}s should be listed.
+	 * @return A list of {@link Goal}s the given {@link Creature} tries to achieve.
+	 */
 	public static List<? extends GoalInformation> getGoals(final Creature entity)
 	{
 		try
@@ -110,6 +159,13 @@ public final class ActionHelper
 		}
 	}
 
+	/**
+	 * Returns a navigation controller for the given creature.
+	 * 
+	 * @param entity
+	 *            The entity which navigation controller should be returned,
+	 * @return The navigation controller for this entity.
+	 */
 	public static Navigation getNavigation(final Creature entity)
 	{
 		return actionHelper.getNavigation(entity);
