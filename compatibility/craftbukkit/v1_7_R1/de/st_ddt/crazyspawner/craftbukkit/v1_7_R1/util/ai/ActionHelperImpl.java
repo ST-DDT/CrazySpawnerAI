@@ -32,12 +32,12 @@ public class ActionHelperImpl implements ActionHelperInterface
 	 */
 	private final static Field goalSelector;
 	/**
-	 * The field belonging to {@link PathfinderGoalSelector#a}.<br>
+	 * The field belonging to {@link PathfinderGoalSelector#b}.<br>
 	 * Class: List<? extends {@link PathfinderGoalSelectorItem}<br>
 	 */
 	private final static Field pathfinderGoalSelectorItemList;
 	/**
-	 * The field belonging to {@link PathfinderGoalSelector#b}.<br>
+	 * The field belonging to {@link PathfinderGoalSelector#c}.<br>
 	 * Class: List<? extends {@link PathfinderGoalSelectorItem}
 	 */
 	private final static Field currentPathfinderGoalSelectorItemList;
