@@ -1,14 +1,14 @@
-package de.st_ddt.crazyspawner.craftbukkit.v1_7_R1.util.ai;
+package de.st_ddt.crazyspawner.craftbukkit.v1_7_R2.util.ai;
 
-import net.minecraft.server.v1_7_R1.PathfinderGoal;
-import de.st_ddt.crazyspawner.entities.util.ai.PathfinderGoalGoalLinker;
+import net.minecraft.server.v1_7_R2.PathfinderGoal;
+import de.st_ddt.crazyspawner.entities.util.ai.PathfinderGoalWrapper;
 
-public final class PathfinderGoalGoalLinkerImpl extends PathfinderGoal implements PathfinderGoalGoalLinker
+public final class PathfinderGoalWrapperImpl extends PathfinderGoal implements PathfinderGoalWrapper
 {
 
 	private final PathfinderGoal goal;
 
-	public PathfinderGoalGoalLinkerImpl(final PathfinderGoal goal)
+	public PathfinderGoalWrapperImpl(final PathfinderGoal goal)
 	{
 		super();
 		this.goal = goal;
@@ -16,40 +16,46 @@ public final class PathfinderGoalGoalLinkerImpl extends PathfinderGoal implement
 		a(goal.j());
 	}
 
+	// CheckRun - Start
 	@Override
 	public boolean a()
 	{
 		return goal.a();
 	}
 
+	// CheckRun - Continue
 	@Override
 	public boolean b()
 	{
 		return goal.b();
 	}
 
+	// Check Interruptible
+	@Override
+	public boolean i()
+	{
+		return goal.i();
+	}
+
+	// Start
 	@Override
 	public void c()
 	{
 		goal.c();
 	}
 
+	// Update
 	@Override
 	public void e()
 	{
 		goal.e();
 	}
 
+	// Reset
 	@Override
 	public void d()
 	{
 		goal.d();
-	}
-
-	@Override
-	public boolean i()
-	{
-		return goal.i();
 	}
 
 	@Override

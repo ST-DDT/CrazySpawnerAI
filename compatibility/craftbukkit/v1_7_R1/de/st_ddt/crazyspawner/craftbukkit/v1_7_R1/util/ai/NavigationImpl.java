@@ -1,6 +1,8 @@
 package de.st_ddt.crazyspawner.craftbukkit.v1_7_R1.util.ai;
 
 import net.minecraft.server.v1_7_R1.EntityCreature;
+import net.minecraft.server.v1_7_R1.RandomPositionGenerator;
+import net.minecraft.server.v1_7_R1.Vec3D;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -124,5 +126,12 @@ public class NavigationImpl implements Navigation
 	{
 		final Location location = creature.getBukkitEntity().getLocation().add(direction);
 		lookAt(location, yawRotationSpeed, pitchRotationSpeed);
+	}
+
+	@Override
+	public Location randomLocation(final int horizontalOffset, final int heightOffset)
+	{
+		final Vec3D vec = RandomPositionGenerator.a(creature, horizontalOffset, heightOffset);
+		return new Location(creature.getBukkitEntity().getWorld(), vec.c, vec.d, vec.e);
 	}
 }
