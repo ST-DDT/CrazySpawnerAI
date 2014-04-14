@@ -18,11 +18,11 @@ public interface Goal
 	/**
 	 * Checks whether this goal should (still) be executed or not.
 	 * 
-	 * @param started
+	 * @param isRunning
 	 *            True, if the goal is currently active and has already been started.
 	 * @return True, if the task should be executed. False otherwise.
 	 */
-	public boolean shouldExecute(boolean started);
+	public boolean shouldExecute(boolean isRunning);
 
 	/**
 	 * Checks whether this task can be interrupted by a higher priority (=lower value) task.
