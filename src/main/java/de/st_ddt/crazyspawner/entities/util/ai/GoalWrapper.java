@@ -10,6 +10,7 @@ import de.st_ddt.crazyspawner.entities.properties.ai.action.goals.Goal;
  * <ul>
  * <li>Extend version dependent <b>net.minecraft.server.PathfinderGoal</b>.</li>
  * <li>Not contain any logic except the wrapping logic.</li>
+ * <li>Implement {@link PathfinderGoalWrapper} or {@link CrazySpawnerAIGoalWrapper}.
  * </ul>
  */
 public interface GoalWrapper extends Goal
