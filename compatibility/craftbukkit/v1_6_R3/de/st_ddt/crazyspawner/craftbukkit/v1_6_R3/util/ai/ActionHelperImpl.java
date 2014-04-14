@@ -17,11 +17,9 @@ import org.bukkit.craftbukkit.v1_6_R3.entity.CraftEntity;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 
-import de.st_ddt.crazyspawner.entities.properties.ai.action.builder.GoalBuilder;
 import de.st_ddt.crazyspawner.entities.properties.ai.action.goals.Goal;
 import de.st_ddt.crazyspawner.entities.util.ai.ActionHelperInterface;
 import de.st_ddt.crazyspawner.entities.util.ai.GoalInformation;
-import de.st_ddt.crazyspawner.entities.util.ai.PathfinderGoalProvider;
 
 public class ActionHelperImpl implements ActionHelperInterface
 {
@@ -148,35 +146,17 @@ public class ActionHelperImpl implements ActionHelperInterface
 	}
 
 	@Override
-	public void clearGoals(final Creature entity) throws Exception
+	public void addGoal(final Creature creature, final Goal goal, final int priority) throws Exception
 	{
-		final EntityCreature creature = getHandle(entity);
-		getGoalSelectorItemsList(creature).clear();
-		getTemporarySelectorItemsList(creature).clear();
+		addGoal(getHandle(creature), wrap(goal), priority);
 	}
 
-	@Override
-	public void addGoal(final Creature entity, final GoalBuilder goalBuilder, final int priority) throws Exception
+	public PathfinderGoal wrap(final Goal goal)
 	{
-		final Goal goal = goalBuilder.build(entity);
-		if (goal instanceof PathfinderGoalProvider)
-			addGoal(entity, (PathfinderGoalProvider) goal, priority);
-		else if (goal instanceof PathfinderGoal)
-			addGoal(getHandle(entity), (PathfinderGoal) goal, priority);
+		if (goal instanceof PathfinderGoal)
+			return (PathfinderGoal) goal;
 		else
-			addGoal(getHandle(entity), new GoalWrapperImpl(goal), priority);
-	}
-
-	@Override
-	public void addGoal(final Creature entity, final GoalInformation information) throws Exception
-	{
-		addGoal(entity, information, information.getPriority());
-	}
-
-	@Override
-	public void addGoal(final Creature entity, final PathfinderGoalProvider goalProvider, final int priorityOverride) throws Exception
-	{
-		addGoal(getHandle(entity), (PathfinderGoal) goalProvider.getPathfinderGoal(), priorityOverride);
+			return new CrazySpawnerAIGoalWrapperImpl(goal);
 	}
 
 	@Override
@@ -185,19 +165,29 @@ public class ActionHelperImpl implements ActionHelperInterface
 		final Map<PathfinderGoal, Integer> goals = getGoals(getHandle(entity));
 		final List<GoalInformation> res = new ArrayList<>(goals.size());
 		for (final Entry<PathfinderGoal, Integer> entry : goals.entrySet())
-			res.add(new GoalInformationImpl(entry.getKey(), entry.getValue()));
+			res.add(new GoalInformation(wrap(entry.getKey()), entry.getValue()));
 		return res;
+	}
+
+	public Goal wrap(final PathfinderGoal goal)
+	{
+		if (goal instanceof Goal)
+			return (Goal) goal;
+		else
+			return new PathfinderGoalWrapperImpl(goal);
+	}
+
+	@Override
+	public void clearGoals(final Creature entity) throws Exception
+	{
+		final EntityCreature creature = getHandle(entity);
+		getGoalSelectorItemsList(creature).clear();
+		getTemporarySelectorItemsList(creature).clear();
 	}
 
 	@Override
 	public NavigationImpl getNavigation(final Creature entity)
 	{
 		return new NavigationImpl(getHandle(entity));
-	}
-
-	@Override
-	public void attack(final Creature entity, final Entity target)
-	{
-		// TODO Auto-generated method stub
 	}
 }

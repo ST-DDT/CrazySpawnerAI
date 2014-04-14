@@ -2,14 +2,14 @@ package de.st_ddt.crazyspawner.craftbukkit.v1_6_R3.util.ai;
 
 import net.minecraft.server.v1_6_R3.PathfinderGoal;
 import de.st_ddt.crazyspawner.entities.properties.ai.action.goals.Goal;
-import de.st_ddt.crazyspawner.entities.util.ai.GoalWrapper;
+import de.st_ddt.crazyspawner.entities.util.ai.CrazySpawnerAIGoalWrapper;
 
-public final class GoalWrapperImpl extends PathfinderGoal implements GoalWrapper
+public final class CrazySpawnerAIGoalWrapperImpl extends PathfinderGoal implements CrazySpawnerAIGoalWrapper
 {
 
 	private final Goal goal;
 
-	public GoalWrapperImpl(final Goal goal)
+	public CrazySpawnerAIGoalWrapperImpl(final Goal goal)
 	{
 		super();
 		this.goal = goal;
