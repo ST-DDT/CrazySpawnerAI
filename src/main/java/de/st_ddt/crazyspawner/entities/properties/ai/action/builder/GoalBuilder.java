@@ -19,7 +19,7 @@ public interface GoalBuilder extends ConfigurationSaveable
 	 */
 	public String getType();
 
-	public Goal build(Creature entity);
+	public Goal build(Creature creature);
 
 	@Override
 	public void save(ConfigurationSection config, String path);

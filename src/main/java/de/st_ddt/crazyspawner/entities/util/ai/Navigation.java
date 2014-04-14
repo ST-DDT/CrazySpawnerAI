@@ -1,6 +1,7 @@
 package de.st_ddt.crazyspawner.entities.util.ai;
 
 import org.bukkit.Location;
+import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 import org.bukkit.util.Vector;
 
@@ -10,6 +11,7 @@ public interface Navigation
 {
 
 	public final static double DEFAULTROTATIONSPEED = VelocityProperty.degToRad(30);
+	public final static double DEFAULTMOVEMENTSPEED = 1;
 
 	/**
 	 * @return True, if the path finder should avoid water.
@@ -175,4 +177,16 @@ public interface Navigation
 	 *            Default = {@link #DEFAULTROTATIONSPEED}
 	 */
 	public void lookInDirection(Vector direction, double yawRotationSpeed, double pitchRotationSpeed);
+
+	/**
+	 * Searches for a random location next to the {@link Creature} within the given radius.<br>
+	 * This method utilizes minecraft's RandomPosituibGenerator.
+	 * 
+	 * @param horizontalOffset
+	 *            The maximum horizontal offset for the location-
+	 * @param heightOffset
+	 *            The maximum height offset for the location.
+	 * @return The random location for the {@link Creature}.
+	 */
+	public Location randomLocation(int horizontalOffset, int heightOffset);
 }

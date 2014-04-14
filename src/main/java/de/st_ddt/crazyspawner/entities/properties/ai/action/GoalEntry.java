@@ -1,9 +1,12 @@
 package de.st_ddt.crazyspawner.entities.properties.ai.action;
 
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Creature;
 
 import de.st_ddt.crazyspawner.entities.properties.ai.action.builder.GoalBuilder;
 import de.st_ddt.crazyspawner.entities.properties.ai.action.builder.impl.BasicGoalBuilder;
+import de.st_ddt.crazyspawner.entities.properties.ai.action.goals.Goal;
+import de.st_ddt.crazyspawner.entities.util.ai.GoalInformation;
 import de.st_ddt.crazyutil.ConfigurationSaveable;
 
 public class GoalEntry implements ConfigurationSaveable
@@ -36,6 +39,16 @@ public class GoalEntry implements ConfigurationSaveable
 	public int getPriority()
 	{
 		return priority;
+	}
+
+	public Goal buildGoal(final Creature creature)
+	{
+		return builder.build(creature);
+	}
+
+	public GoalInformation buildGoalInformation(final Creature creature)
+	{
+		return new GoalInformation(buildGoal(creature), priority);
 	}
 
 	@Override

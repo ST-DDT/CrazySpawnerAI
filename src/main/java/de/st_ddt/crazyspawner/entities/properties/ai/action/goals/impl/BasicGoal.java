@@ -1,5 +1,7 @@
 package de.st_ddt.crazyspawner.entities.properties.ai.action.goals.impl;
 
+import java.util.Random;
+
 import org.bukkit.entity.Creature;
 
 import de.st_ddt.crazyspawner.entities.properties.ai.action.goals.EntityBoundGoal;
@@ -7,6 +9,7 @@ import de.st_ddt.crazyspawner.entities.properties.ai.action.goals.EntityBoundGoa
 public abstract class BasicGoal implements EntityBoundGoal
 {
 
+	protected final static Random RANDOM = new Random();
 	protected final Creature entity;
 	private final int mutexBitFlags;
 

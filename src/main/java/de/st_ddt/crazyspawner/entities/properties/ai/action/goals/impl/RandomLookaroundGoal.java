@@ -1,19 +1,16 @@
 package de.st_ddt.crazyspawner.entities.properties.ai.action.goals.impl;
 
-import java.util.Random;
-
 import org.bukkit.entity.Creature;
 import org.bukkit.util.Vector;
 
 import de.st_ddt.crazyspawner.entities.util.ai.ActionHelper;
 import de.st_ddt.crazyspawner.entities.util.ai.Navigation;
 
-public class RandomLookaroundGoal extends BasicGoal
+public final class RandomLookaroundGoal extends BasicGoal
 {
 
-	protected final static Random RANDOM = new Random();
-	protected Vector target;
-	protected int time;
+	private Vector target;
+	private int time;
 
 	public RandomLookaroundGoal(final Creature entity)
 	{

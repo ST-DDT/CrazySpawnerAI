@@ -6,6 +6,7 @@ import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 
 import de.st_ddt.crazyspawner.ai.CrazySpawnerAI;
+import de.st_ddt.crazyspawner.entities.properties.ai.action.GoalEntry;
 import de.st_ddt.crazyspawner.entities.properties.ai.action.builder.GoalBuilder;
 import de.st_ddt.crazyspawner.entities.properties.ai.action.goals.Goal;
 
@@ -72,29 +73,37 @@ public final class ActionHelper
 	}
 
 	/**
-	 * Appends a goal to the {@link Creature}'s list of goals.
+	 * Adds a {@link Goal} to the {@link Creature}'s list of goals.<br>
+	 * The goal will be added in order.
+	 * 
+	 * @param creature
+	 *            The {@link Creature} that should get a new goal.
+	 * @param goalEntry
+	 *            The {@link Goal} to be added to this {@link Creature}.
+	 */
+	public static void addGoal(final Creature creature, final GoalEntry goalEntry)
+	{
+		addGoal(creature, goalEntry.getBuilder(), goalEntry.getPriority());
+	}
+
+	/**
+	 * Adds a {@link Goal} to the {@link Creature}'s list of goals.<br>
+	 * The goal will be added in order.
 	 * 
 	 * @param entity
 	 *            The {@link Creature} that should get a new goal.
 	 * @param goal
 	 *            The new {@link Goal} for this {@link Creature}.
 	 */
-	public static void addGoal(final Creature entity, final GoalBuilder goal, final int priority)
+	public static void addGoal(final Creature entity, final GoalBuilder goalBuilder, final int priority)
 	{
-		try
-		{
-			actionHelper.addGoal(entity, goal, priority);
-		}
-		catch (final Exception e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		addGoal(entity, goalBuilder.build(entity), priority);
 	}
 
 	/**
-	 * Appends a goal to the {@link Creature}'s list of goals.<br>
-	 * DO NOT ADD OTHER CREATURE'S GOALS!
+	 * Adds a {@link Goal} to the {@link Creature}'s list of goals.<br>
+	 * The goal will be added in order.<br>
+	 * <b>DO NOT ADD OTHER CREATURE'S GOALS!</b>
 	 * 
 	 * @param entity
 	 *            The {@link Creature} that should get a new goal.
@@ -103,31 +112,43 @@ public final class ActionHelper
 	 */
 	public static void addGoal(final Creature creature, final GoalInformation goalInformation)
 	{
-		try
-		{
-			actionHelper.addGoal(creature, goalInformation);
-		}
-		catch (final Exception e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		addGoal(creature, goalInformation.getGoal(), goalInformation.getPriority());
 	}
 
 	/**
-	 * Appends a goal to the {@link Creature}'s list of goals.<br>
-	 * DO NOT ADD OTHER CREATURE'S GOALS!
+	 * Adds a {@link Goal} to the {@link Creature}'s list of goals.<br>
+	 * The goal will be added in order.<br>
+	 * <b>DO NOT ADD OTHER CREATURE'S GOALS!</b>
 	 * 
 	 * @param entity
 	 *            The {@link Creature} that should get a new goal.
 	 * @param information
 	 *            The new {@link GoalInformation} for this {@link Creature}.
+	 * @param priorityOverride
+	 *            The priority for this goal.
 	 */
-	public static void addGoal(final Creature creature, final PathfinderGoalProvider goalProvider, final int priorityOverride)
+	public static void addGoal(final Creature creature, final GoalInformation goalInformation, final int priorityOverride)
+	{
+		addGoal(creature, goalInformation.getGoal(), priorityOverride);
+	}
+
+	/**
+	 * Adds a {@link Goal} to the {@link Creature}'s list of goals.<br>
+	 * The goal will be added in order.<br>
+	 * <b>DO NOT ADD OTHER CREATURE'S GOALS!</b>
+	 * 
+	 * @param entity
+	 *            The {@link Creature} that should get a new goal.
+	 * @param goal
+	 *            The new {@link Goal} for this {@link Creature}.
+	 * @param priority
+	 *            The priotity for the goal.
+	 */
+	public static void addGoal(final Creature creature, final Goal goal, final int priority)
 	{
 		try
 		{
-			actionHelper.addGoal(creature, goalProvider, priorityOverride);
+			actionHelper.addGoal(creature, unwrap(goal), priority);
 		}
 		catch (final Exception e)
 		{
@@ -158,6 +179,29 @@ public final class ActionHelper
 	}
 
 	/**
+	 * Removes any not necessary wrappings from this goal.
+	 * 
+	 * @param goal
+	 *            The goal that should be unwrapped.
+	 * @return The unwrapped goal
+	 */
+	public static Goal unwrap(final Goal goal)
+	{
+		if (goal instanceof CrazySpawnerAIGoalWrapper)
+			return unwrap(((CrazySpawnerAIGoalWrapper) goal).getGoal());
+		else if (goal instanceof PathfinderGoalWrapper)
+		{
+			final Object wrappedGoal = ((PathfinderGoalWrapper) goal).getPathfinderGoal();
+			if (wrappedGoal instanceof Goal)
+				return unwrap((Goal) wrappedGoal);
+			else
+				return goal;
+		}
+		else
+			return goal;
+	}
+
+	/**
 	 * Returns a navigation controller for the given creature.
 	 * 
 	 * @param entity
@@ -167,18 +211,5 @@ public final class ActionHelper
 	public static Navigation getNavigation(final Creature entity)
 	{
 		return actionHelper.getNavigation(entity);
-	}
-
-	public static void attack(final Creature entity, final Entity target)
-	{
-		try
-		{
-			actionHelper.attack(entity, target);
-		}
-		catch (final Exception e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }
