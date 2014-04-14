@@ -21,7 +21,6 @@ public interface ActionHelperInterface
 
 	/**
 	 * Adds a {@link Goal} to the {@link Creature}'s list of goals.<br>
-	 * The goal will be added in order.<br>
 	 * <b>DO NOT ADD OTHER CREATURE'S GOALS!</b>
 	 * 
 	 * @param entity

@@ -73,8 +73,7 @@ public final class ActionHelper
 	}
 
 	/**
-	 * Adds a {@link Goal} to the {@link Creature}'s list of goals.<br>
-	 * The goal will be added in order.
+	 * Adds a {@link Goal} to the {@link Creature}'s list of goals.
 	 * 
 	 * @param creature
 	 *            The {@link Creature} that should get a new goal.
@@ -87,8 +86,7 @@ public final class ActionHelper
 	}
 
 	/**
-	 * Adds a {@link Goal} to the {@link Creature}'s list of goals.<br>
-	 * The goal will be added in order.
+	 * Adds a {@link Goal} to the {@link Creature}'s list of goals.
 	 * 
 	 * @param entity
 	 *            The {@link Creature} that should get a new goal.
@@ -101,8 +99,7 @@ public final class ActionHelper
 	}
 
 	/**
-	 * Adds a {@link Goal} to the {@link Creature}'s list of goals.<br>
-	 * The goal will be added in order.<br>
+	 * Adds a {@link Goal} to the {@link Creature}'s list of goals.
 	 * <b>DO NOT ADD OTHER CREATURE'S GOALS!</b>
 	 * 
 	 * @param entity
@@ -116,8 +113,7 @@ public final class ActionHelper
 	}
 
 	/**
-	 * Adds a {@link Goal} to the {@link Creature}'s list of goals.<br>
-	 * The goal will be added in order.<br>
+	 * Adds a {@link Goal} to the {@link Creature}'s list of goals.
 	 * <b>DO NOT ADD OTHER CREATURE'S GOALS!</b>
 	 * 
 	 * @param entity
@@ -133,8 +129,7 @@ public final class ActionHelper
 	}
 
 	/**
-	 * Adds a {@link Goal} to the {@link Creature}'s list of goals.<br>
-	 * The goal will be added in order.<br>
+	 * Adds a {@link Goal} to the {@link Creature}'s list of goals.
 	 * <b>DO NOT ADD OTHER CREATURE'S GOALS!</b>
 	 * 
 	 * @param entity
