@@ -102,4 +102,10 @@ public final class PathfinderGoalWrapperImpl extends PathfinderGoal implements P
 	{
 		return goal.j();
 	}
+
+	@Override
+	public String toString()
+	{
+		return goal.getClass().getSimpleName();
+	}
 }

@@ -100,4 +100,10 @@ public final class CrazySpawnerAIGoalWrapperImpl extends PathfinderGoal implemen
 	{
 		return goal.getMutexBitFlags();
 	}
+
+	@Override
+	public String toString()
+	{
+		return goal.toString();
+	}
 }

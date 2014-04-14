@@ -17,36 +17,42 @@ public final class CrazySpawnerAIGoalWrapperImpl extends PathfinderGoal implemen
 		a(goal.getMutexBitFlags());
 	}
 
+	// CheckRun - Start
 	@Override
 	public boolean a()
 	{
 		return goal.shouldExecute(false);
 	}
 
+	// CheckRun - Continue
 	@Override
 	public boolean b()
 	{
 		return goal.shouldExecute(true);
 	}
 
+	// Check Interruptible
 	@Override
 	public boolean i()
 	{
 		return goal.isInterruptible();
 	}
 
+	// Start
 	@Override
 	public void c()
 	{
 		goal.start();
 	}
 
+	// Update
 	@Override
 	public void e()
 	{
 		goal.update();
 	}
 
+	// Reset
 	@Override
 	public void d()
 	{
@@ -93,5 +99,11 @@ public final class CrazySpawnerAIGoalWrapperImpl extends PathfinderGoal implemen
 	public int getMutexBitFlags()
 	{
 		return goal.getMutexBitFlags();
+	}
+
+	@Override
+	public String toString()
+	{
+		return goal.toString();
 	}
 }
