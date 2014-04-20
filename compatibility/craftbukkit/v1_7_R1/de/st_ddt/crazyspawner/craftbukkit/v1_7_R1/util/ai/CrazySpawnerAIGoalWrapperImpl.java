@@ -66,9 +66,9 @@ public final class CrazySpawnerAIGoalWrapperImpl extends PathfinderGoal implemen
 	}
 
 	@Override
-	public boolean shouldExecute(final boolean started)
+	public boolean shouldExecute(final boolean isRunning)
 	{
-		return goal.shouldExecute(started);
+		return goal.shouldExecute(isRunning);
 	}
 
 	@Override

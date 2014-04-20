@@ -65,9 +65,9 @@ public final class PathfinderGoalWrapperImpl extends PathfinderGoal implements P
 	}
 
 	@Override
-	public boolean shouldExecute(final boolean started)
+	public boolean shouldExecute(final boolean isRunning)
 	{
-		if (started)
+		if (isRunning)
 			return goal.b();
 		else
 			return goal.a();
