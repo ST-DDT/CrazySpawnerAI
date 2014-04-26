@@ -24,6 +24,8 @@
 	<properties>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<timestamp>${maven.build.timestamp}</timestamp>
+		<maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
 		<crazycore.version>11.0-SNAPSHOT</crazycore.version>
 		<crazyspawner.version>5.0-SNAPSHOT</crazyspawner.version>
 	</properties>
