@@ -8,7 +8,7 @@
 
 	<groupId>de.st_ddt.crazy</groupId>
 	<artifactId>CrazySpawnerAI</artifactId>
-	<version>0.1</version>
+	<version>0.1.0</version>
 	<packaging>jar</packaging>
 
 	<name>CrazySpawnerAI</name>
@@ -26,8 +26,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<timestamp>${maven.build.timestamp}</timestamp>
 		<maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
-		<crazycore.version>11.0-SNAPSHOT</crazycore.version>
-		<crazyspawner.version>5.0-SNAPSHOT</crazyspawner.version>
+		<crazycore.version>11.0.0-SNAPSHOT</crazycore.version>
+		<crazyspawner.version>5.0.0-SNAPSHOT</crazyspawner.version>
 	</properties>
 
 	<dependencies>
