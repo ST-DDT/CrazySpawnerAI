@@ -5,12 +5,12 @@ import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 import org.bukkit.util.Vector;
 
-import de.st_ddt.crazyspawner.entities.properties.VelocityProperty;
+import de.st_ddt.crazyutil.paramitrisable.VectorParamitrisable;
 
 public interface Navigation
 {
 
-	public final static double DEFAULTROTATIONSPEED = VelocityProperty.degToRad(30);
+	public final static double DEFAULTROTATIONSPEED = VectorParamitrisable.degToRad(30);
 	public final static double DEFAULTMOVEMENTSPEED = 1;
 
 	/**
