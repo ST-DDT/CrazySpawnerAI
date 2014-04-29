@@ -8,7 +8,7 @@ import org.bukkit.entity.Creature;
 import de.st_ddt.crazyspawner.entities.properties.ai.action.goals.Goal;
 
 /**
- * Helper interface for {@link ActionHelper}, providing access to version.
+ * Helper interface for {@link ActionHelper}, providing access to version dependent methods/features.
  */
 public interface ActionHelperInterface
 {
