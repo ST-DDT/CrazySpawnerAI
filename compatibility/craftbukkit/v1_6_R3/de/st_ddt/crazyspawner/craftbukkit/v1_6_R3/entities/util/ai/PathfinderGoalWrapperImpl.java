@@ -1,6 +1,6 @@
-package de.st_ddt.crazyspawner.craftbukkit.v1_7_R1.util.ai;
+package de.st_ddt.crazyspawner.craftbukkit.v1_6_R3.entities.util.ai;
 
-import net.minecraft.server.v1_7_R1.PathfinderGoal;
+import net.minecraft.server.v1_6_R3.PathfinderGoal;
 import de.st_ddt.crazyspawner.entities.util.ai.PathfinderGoalWrapper;
 
 public final class PathfinderGoalWrapperImpl extends PathfinderGoal implements PathfinderGoalWrapper

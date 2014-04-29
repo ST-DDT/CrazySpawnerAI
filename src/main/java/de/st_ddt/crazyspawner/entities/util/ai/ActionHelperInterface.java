@@ -4,20 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.entity.Creature;
-import org.bukkit.entity.Entity;
 
 import de.st_ddt.crazyspawner.entities.properties.ai.action.goals.Goal;
 
+/**
+ * Helper interface for {@link ActionHelper}, providing access to version.
+ */
 public interface ActionHelperInterface
 {
 
 	public List<Class<? extends ActionHelperInterface>> ACTIONHELPERCLASSES = new ArrayList<>();
-
-	public Object getHandle(Entity entity);
-
-	public Object getHandle(Creature entity);
-
-	public Creature getEntity(Object entity);
 
 	/**
 	 * Adds a {@link Goal} to the {@link Creature}'s list of goals.<br>

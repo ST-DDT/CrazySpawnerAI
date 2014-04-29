@@ -3,7 +3,6 @@ package de.st_ddt.crazyspawner.entities.util.ai;
 import java.util.List;
 
 import org.bukkit.entity.Creature;
-import org.bukkit.entity.Entity;
 
 import de.st_ddt.crazyspawner.ai.CrazySpawnerAI;
 import de.st_ddt.crazyspawner.entities.properties.ai.action.GoalEntry;
@@ -36,21 +35,6 @@ public final class ActionHelper
 			catch (final Throwable t)
 			{}
 		return false;
-	}
-
-	public static Object getHandle(final Entity entity)
-	{
-		return actionHelper.getHandle(entity);
-	}
-
-	public static Object getHandle(final Creature entity)
-	{
-		return actionHelper.getHandle(entity);
-	}
-
-	public static Creature getEntity(final Object entity)
-	{
-		return actionHelper.getEntity(entity);
 	}
 
 	/**
@@ -99,8 +83,7 @@ public final class ActionHelper
 	}
 
 	/**
-	 * Adds a {@link Goal} to the {@link Creature}'s list of goals.
-	 * <b>DO NOT ADD OTHER CREATURE'S GOALS!</b>
+	 * Adds a {@link Goal} to the {@link Creature}'s list of goals. <b>DO NOT ADD OTHER CREATURE'S GOALS!</b>
 	 * 
 	 * @param entity
 	 *            The {@link Creature} that should get a new goal.
@@ -113,8 +96,7 @@ public final class ActionHelper
 	}
 
 	/**
-	 * Adds a {@link Goal} to the {@link Creature}'s list of goals.
-	 * <b>DO NOT ADD OTHER CREATURE'S GOALS!</b>
+	 * Adds a {@link Goal} to the {@link Creature}'s list of goals. <b>DO NOT ADD OTHER CREATURE'S GOALS!</b>
 	 * 
 	 * @param entity
 	 *            The {@link Creature} that should get a new goal.
@@ -129,8 +111,7 @@ public final class ActionHelper
 	}
 
 	/**
-	 * Adds a {@link Goal} to the {@link Creature}'s list of goals.
-	 * <b>DO NOT ADD OTHER CREATURE'S GOALS!</b>
+	 * Adds a {@link Goal} to the {@link Creature}'s list of goals. <b>DO NOT ADD OTHER CREATURE'S GOALS!</b>
 	 * 
 	 * @param entity
 	 *            The {@link Creature} that should get a new goal.

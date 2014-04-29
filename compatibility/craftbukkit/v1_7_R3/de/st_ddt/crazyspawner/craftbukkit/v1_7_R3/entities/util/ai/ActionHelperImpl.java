@@ -1,4 +1,4 @@
-package de.st_ddt.crazyspawner.craftbukkit.v1_6_R3.util.ai;
+package de.st_ddt.crazyspawner.craftbukkit.v1_7_R3.entities.util.ai;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -7,15 +7,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import net.minecraft.server.v1_6_R3.EntityCreature;
-import net.minecraft.server.v1_6_R3.EntityInsentient;
-import net.minecraft.server.v1_6_R3.PathfinderGoal;
-import net.minecraft.server.v1_6_R3.PathfinderGoalSelector;
+import net.minecraft.server.v1_7_R3.EntityCreature;
+import net.minecraft.server.v1_7_R3.EntityInsentient;
+import net.minecraft.server.v1_7_R3.PathfinderGoal;
+import net.minecraft.server.v1_7_R3.PathfinderGoalSelector;
 
-import org.bukkit.craftbukkit.v1_6_R3.entity.CraftCreature;
-import org.bukkit.craftbukkit.v1_6_R3.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R3.entity.CraftCreature;
 import org.bukkit.entity.Creature;
-import org.bukkit.entity.Entity;
 
 import de.st_ddt.crazyspawner.entities.properties.ai.action.goals.Goal;
 import de.st_ddt.crazyspawner.entities.util.ai.ActionHelperInterface;
@@ -30,12 +28,12 @@ public class ActionHelperImpl implements ActionHelperInterface
 	 */
 	private final static Field goalSelector;
 	/**
-	 * The field belonging to {@link PathfinderGoalSelector#a}.<br>
+	 * The field belonging to {@link PathfinderGoalSelector#b}.<br>
 	 * Class: List<? extends {@link PathfinderGoalSelectorItem}<br>
 	 */
 	private final static Field pathfinderGoalSelectorItemList;
 	/**
-	 * The field belonging to {@link PathfinderGoalSelector#b}.<br>
+	 * The field belonging to {@link PathfinderGoalSelector#c}.<br>
 	 * Class: List<? extends {@link PathfinderGoalSelectorItem}
 	 */
 	private final static Field currentPathfinderGoalSelectorItemList;
@@ -62,11 +60,11 @@ public class ActionHelperImpl implements ActionHelperInterface
 			_goalSelector = mcEntityClass.getDeclaredField("goalSelector");
 			_goalSelector.setAccessible(true);
 			final Class<?> mcGoalSelectorClass = PathfinderGoalSelector.class;
-			_pathfinderGoalSelectorItemList = mcGoalSelectorClass.getDeclaredField("a");
+			_pathfinderGoalSelectorItemList = mcGoalSelectorClass.getDeclaredField("b");
 			_pathfinderGoalSelectorItemList.setAccessible(true);
-			_currentPathfinderGoalSelectorItemList = mcGoalSelectorClass.getDeclaredField("b");
+			_currentPathfinderGoalSelectorItemList = mcGoalSelectorClass.getDeclaredField("c");
 			_currentPathfinderGoalSelectorItemList.setAccessible(true);
-			final Class<?> mcGoalSelectorItemClass = Class.forName("net.minecraft.server.v1_6_R3.PathfinderGoalSelectorItem");
+			final Class<?> mcGoalSelectorItemClass = Class.forName("net.minecraft.server.v1_7_R3.PathfinderGoalSelectorItem");
 			_pathfinderGoal = mcGoalSelectorItemClass.getDeclaredField("a");
 			_pathfinderGoal.setAccessible(true);
 			_pathfinderGoalPriority = mcGoalSelectorItemClass.getDeclaredField("b");
@@ -92,23 +90,9 @@ public class ActionHelperImpl implements ActionHelperInterface
 		NavigationImpl.ACTIONHELPER = this;
 	}
 
-	@Override
-	public net.minecraft.server.v1_6_R3.Entity getHandle(final Entity entity)
-	{
-		return ((CraftEntity) entity).getHandle();
-	}
-
-	@Override
 	public EntityCreature getHandle(final Creature entity)
 	{
 		return ((CraftCreature) entity).getHandle();
-	}
-
-	@Override
-	public Creature getEntity(final Object entity)
-	{
-		final EntityCreature creature = (EntityCreature) entity;
-		return (Creature) creature.getBukkitEntity();
 	}
 
 	protected PathfinderGoalSelector getGoalSelector(final EntityCreature creature) throws Exception

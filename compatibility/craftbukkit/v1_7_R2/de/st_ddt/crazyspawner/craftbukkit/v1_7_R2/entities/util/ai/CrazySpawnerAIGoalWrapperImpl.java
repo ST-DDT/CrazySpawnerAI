@@ -1,65 +1,66 @@
-package de.st_ddt.crazyspawner.craftbukkit.v1_7_R2.util.ai;
+package de.st_ddt.crazyspawner.craftbukkit.v1_7_R2.entities.util.ai;
 
 import net.minecraft.server.v1_7_R2.PathfinderGoal;
-import de.st_ddt.crazyspawner.entities.util.ai.PathfinderGoalWrapper;
+import de.st_ddt.crazyspawner.entities.properties.ai.action.goals.Goal;
+import de.st_ddt.crazyspawner.entities.util.ai.CrazySpawnerAIGoalWrapper;
 
-public final class PathfinderGoalWrapperImpl extends PathfinderGoal implements PathfinderGoalWrapper
+public final class CrazySpawnerAIGoalWrapperImpl extends PathfinderGoal implements CrazySpawnerAIGoalWrapper
 {
 
-	private final PathfinderGoal goal;
+	private final Goal goal;
 
-	public PathfinderGoalWrapperImpl(final PathfinderGoal goal)
+	public CrazySpawnerAIGoalWrapperImpl(final Goal goal)
 	{
 		super();
 		this.goal = goal;
 		// Set Mutex
-		a(goal.j());
+		a(goal.getMutexBitFlags());
 	}
 
 	// CheckRun - Start
 	@Override
 	public boolean a()
 	{
-		return goal.a();
+		return goal.shouldExecute(false);
 	}
 
 	// CheckRun - Continue
 	@Override
 	public boolean b()
 	{
-		return goal.b();
+		return goal.shouldExecute(true);
 	}
 
 	// Check Interruptible
 	@Override
 	public boolean i()
 	{
-		return goal.i();
+		return goal.isInterruptible();
 	}
 
 	// Start
 	@Override
 	public void c()
 	{
-		goal.c();
+		goal.start();
 	}
 
 	// Update
 	@Override
 	public void e()
 	{
-		goal.e();
+		goal.update();
 	}
 
 	// Reset
 	@Override
 	public void d()
 	{
-		goal.d();
+		goal.reset();
 	}
 
 	@Override
-	public PathfinderGoal getPathfinderGoal()
+	public Goal getGoal()
 	{
 		return goal;
 	}
@@ -67,45 +68,42 @@ public final class PathfinderGoalWrapperImpl extends PathfinderGoal implements P
 	@Override
 	public boolean shouldExecute(final boolean isRunning)
 	{
-		if (isRunning)
-			return goal.b();
-		else
-			return goal.a();
+		return goal.shouldExecute(isRunning);
 	}
 
 	@Override
 	public boolean isInterruptible()
 	{
-		return goal.i();
+		return goal.isInterruptible();
 	}
 
 	@Override
 	public void start()
 	{
-		goal.c();
+		goal.start();
 	}
 
 	@Override
 	public void update()
 	{
-		goal.e();
+		goal.update();
 	}
 
 	@Override
 	public void reset()
 	{
-		goal.d();
+		goal.reset();
 	}
 
 	@Override
 	public int getMutexBitFlags()
 	{
-		return goal.j();
+		return goal.getMutexBitFlags();
 	}
 
 	@Override
 	public String toString()
 	{
-		return goal.getClass().getSimpleName();
+		return goal.toString();
 	}
 }

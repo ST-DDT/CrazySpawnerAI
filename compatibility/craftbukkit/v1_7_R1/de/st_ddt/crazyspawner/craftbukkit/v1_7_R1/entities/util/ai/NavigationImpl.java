@@ -1,10 +1,11 @@
-package de.st_ddt.crazyspawner.craftbukkit.v1_7_R1.util.ai;
+package de.st_ddt.crazyspawner.craftbukkit.v1_7_R1.entities.util.ai;
 
 import net.minecraft.server.v1_7_R1.EntityCreature;
 import net.minecraft.server.v1_7_R1.RandomPositionGenerator;
 import net.minecraft.server.v1_7_R1.Vec3D;
 
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_7_R1.entity.CraftEntity;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.util.Vector;
@@ -14,6 +15,11 @@ import de.st_ddt.crazyutil.paramitrisable.VectorParamitrisable;
 
 public class NavigationImpl implements Navigation
 {
+
+	public net.minecraft.server.v1_7_R1.Entity getHandle(final Entity entity)
+	{
+		return ((CraftEntity) entity).getHandle();
+	}
 
 	static ActionHelperImpl ACTIONHELPER;
 	private final EntityCreature creature;
@@ -91,7 +97,7 @@ public class NavigationImpl implements Navigation
 	{
 		if (!target.getLocation().getWorld().equals(target.getWorld()))
 			throw new IllegalArgumentException("Cannot walk to another world!");
-		return creature.getNavigation().a(ACTIONHELPER.getHandle(target), speed);
+		return creature.getNavigation().a(getHandle(target), speed);
 	}
 
 	@Override
