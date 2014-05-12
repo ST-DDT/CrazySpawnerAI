@@ -3,6 +3,7 @@ package de.st_ddt.crazyspawner.ai.routes;
 import java.util.Map;
 
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.util.Vector;
 
 import de.st_ddt.crazyutil.ConfigurationSaveable;
 
@@ -87,6 +88,29 @@ public class RouteConnection implements ConfigurationSaveable
 			return point2;
 		else if (point2 == point)
 			return point1;
+		else
+			return null;
+	}
+
+	public Vector getVectorFromPoint1()
+	{
+		// Vector = Point2 - Point1
+		final Vector vector = point1.getLocation().toVector();
+		vector.multiply(-1);
+		return vector.add(point2.getLocation().toVector());
+	}
+
+	public Vector getVectorFromPoint2()
+	{
+		return getVectorFromPoint1().multiply(-1);
+	}
+
+	public Vector getVectorFromPoint(final RoutePoint point)
+	{
+		if (point1 == point)
+			return getVectorFromPoint1();
+		else if (point2 == point)
+			return getVectorFromPoint2();
 		else
 			return null;
 	}
