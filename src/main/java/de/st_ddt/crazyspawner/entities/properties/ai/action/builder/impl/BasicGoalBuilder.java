@@ -18,10 +18,10 @@ public abstract class BasicGoalBuilder implements GoalBuilder
 			throw new IllegalArgumentException("ConfigurationSection cannot be NULL!");
 		final String type = config.getString("type");
 		if (type == null)
-			throw new IllegalArgumentException("ConditionType cannot be NULL!");
+			throw new IllegalArgumentException("GoalBuilderType cannot be NULL!");
 		final Class<? extends GoalBuilder> clazz = GOALBUILDERCLASSES.get(type);
 		if (clazz == null)
-			throw new IllegalArgumentException("ConditionClass cannot be NULL! The ConditionType is corruped, please check that!");
+			throw new IllegalArgumentException("GoalBuilderType cannot be NULL! The GoalBuilderType is corruped, please check that!");
 		try
 		{
 			final Constructor<? extends GoalBuilder> constructor = clazz.getConstructor(ConfigurationSection.class);
