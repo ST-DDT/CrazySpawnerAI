@@ -63,6 +63,7 @@ public class CreatureActionSetProperty extends BasicProperty
 				catch (final Throwable e)
 				{
 					System.err.println(config.getName() + "'s AI Goals " + key + " was corrupted/invalid and has been removed!");
+					System.err.println(e.getMessage());
 				}
 		}
 		this.goalEntries = goals;
