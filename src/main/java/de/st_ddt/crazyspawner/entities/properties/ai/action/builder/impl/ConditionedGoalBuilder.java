@@ -4,6 +4,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Creature;
 
 import de.st_ddt.crazyspawner.entities.properties.ai.action.builder.GoalBuilder;
+import de.st_ddt.crazyspawner.entities.properties.ai.action.builder.GoalBuilderHelper;
 import de.st_ddt.crazyspawner.entities.properties.ai.action.goals.impl.ConditionedGoal;
 import de.st_ddt.crazyutil.conditions.Condition;
 import de.st_ddt.crazyutil.conditions.ConditionHelper;
@@ -69,7 +70,7 @@ public final class ConditionedGoalBuilder extends BasicGoalBuilder
 		GoalBuilder builder = null;
 		try
 		{
-			builder = BasicGoalBuilder.load(config.getConfigurationSection("goal"));
+			builder = GoalBuilderHelper.load(config.getConfigurationSection("goal"));
 		}
 		catch (final Throwable e)
 		{

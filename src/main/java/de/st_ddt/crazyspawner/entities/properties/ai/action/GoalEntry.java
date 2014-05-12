@@ -4,7 +4,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Creature;
 
 import de.st_ddt.crazyspawner.entities.properties.ai.action.builder.GoalBuilder;
-import de.st_ddt.crazyspawner.entities.properties.ai.action.builder.impl.BasicGoalBuilder;
+import de.st_ddt.crazyspawner.entities.properties.ai.action.builder.GoalBuilderHelper;
 import de.st_ddt.crazyspawner.entities.properties.ai.action.goals.Goal;
 import de.st_ddt.crazyspawner.entities.util.ai.GoalInformation;
 import de.st_ddt.crazyutil.ConfigurationSaveable;
@@ -16,7 +16,7 @@ public class GoalEntry implements ConfigurationSaveable
 	{
 		if (config == null)
 			throw new IllegalArgumentException("ConfigurationSection cannot be NULL!");
-		final GoalBuilder builder = BasicGoalBuilder.load(config.getConfigurationSection("goal"));
+		final GoalBuilder builder = GoalBuilderHelper.load(config.getConfigurationSection("goal"));
 		final int priority = config.getInt("priority", 100);
 		return new GoalEntry(builder, priority);
 	}
