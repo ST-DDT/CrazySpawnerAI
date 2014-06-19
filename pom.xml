@@ -27,7 +27,7 @@
 		<timestamp>${maven.build.timestamp}</timestamp>
 		<maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
 		<crazycore.version>11.0.0-SNAPSHOT</crazycore.version>
-		<crazyspawner.version>5.0.0-SNAPSHOT</crazyspawner.version>
+		<crazyspawner.version>5.0.0</crazyspawner.version>
 	</properties>
 
 	<dependencies>
@@ -47,6 +47,13 @@
 			<groupId>de.st_ddt.crazy</groupId>
 			<artifactId>CrazySpawner</artifactId>
 			<version>${crazyspawner.version}</version>
+		</dependency>
+		<!-- Other Plugins -->
+		<dependency>
+			<groupId>us.dynmap</groupId>
+			<artifactId>dynmap-api</artifactId>
+			<version>1.9.4</version>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 
@@ -88,6 +95,24 @@
 			</resource>
 		</resources>
 		<plugins>
+			<plugin>
+				<groupId>de.st_ddt.crazy.maven</groupId>
+				<artifactId>CrazyLocalesUpdater</artifactId>
+				<version>1.0.0</version>
+				<executions>
+					<execution>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>update</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<includeArtifacts>
+						<includeArtifact>CrazyAPI</includeArtifact>
+					</includeArtifacts>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
