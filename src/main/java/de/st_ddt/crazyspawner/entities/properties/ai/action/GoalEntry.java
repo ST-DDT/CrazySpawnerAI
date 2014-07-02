@@ -9,7 +9,7 @@ import de.st_ddt.crazyspawner.entities.properties.ai.action.goals.Goal;
 import de.st_ddt.crazyspawner.entities.util.ai.GoalInformation;
 import de.st_ddt.crazyutil.ConfigurationSaveable;
 
-public class GoalEntry implements ConfigurationSaveable
+public final class GoalEntry implements ConfigurationSaveable, Comparable<GoalEntry>
 {
 
 	public static GoalEntry load(final ConfigurationSection config) throws Throwable
@@ -56,5 +56,11 @@ public class GoalEntry implements ConfigurationSaveable
 	{
 		builder.save(config, path + "goal.");
 		config.set(path + "priority", priority);
+	}
+
+	@Override
+	public int compareTo(GoalEntry o)
+	{
+		return priority - o.priority;
 	}
 }
