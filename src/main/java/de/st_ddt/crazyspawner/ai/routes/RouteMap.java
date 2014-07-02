@@ -2,12 +2,9 @@ package de.st_ddt.crazyspawner.ai.routes;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -24,17 +21,16 @@ import java.util.concurrent.Future;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.LivingEntity;
 
 import de.st_ddt.crazyutil.comparators.PathLengthComparator;
 import de.st_ddt.crazyutil.comparators.RoutePointDistanceComparator;
 import de.st_ddt.crazyutil.conditions.ConditionHelper;
+import de.st_ddt.crazyutil.config.CrazyYamlConfiguration;
 
 public class RouteMap
 {
 
-	private final static DateFormat BACKUPFILEDATEFORMAT = new SimpleDateFormat("yyyyMMddHHmmss");
 	private final static File ROUTEFILEDIR = new File("plugins/CrazySpawnerAI/Routes");
 	private final static Comparator<Path> PATHLENGTHCOMPARATOR = new PathLengthComparator();
 	private final static ExecutorService THREADPOOL = Executors.newCachedThreadPool();
@@ -55,8 +51,7 @@ public class RouteMap
 	{
 		if (!file.exists())
 			return;
-		final File backupFile = new File(ROUTEFILEDIR, world.getName() + "-" + BACKUPFILEDATEFORMAT.format(new Date()) + ".yml");
-		final YamlConfiguration config = new YamlConfiguration();
+		final CrazyYamlConfiguration config = new CrazyYamlConfiguration();
 		try
 		{
 			config.load(file);
@@ -64,13 +59,6 @@ public class RouteMap
 		catch (final Exception e)
 		{
 			System.err.println("[CrazySpawnerAI] Could not read " + file.getPath());
-			try
-			{
-				file.renameTo(backupFile);
-				System.err.println("[CrazySpawnerAI] Created backup: " + backupFile.getPath());
-			}
-			catch (final Exception e1)
-			{}
 			e.printStackTrace();
 			return;
 		}
@@ -103,18 +91,15 @@ public class RouteMap
 					createBackUp = true;
 				}
 		if (createBackUp)
-			try
-			{
-				file.renameTo(backupFile);
-				System.err.println("[CrazySpawnerAI] Created backup: " + backupFile.getPath());
-			}
-			catch (final Exception e1)
-			{}
+		{
+			final File backupFile = CrazyYamlConfiguration.createBackup(file);
+			System.err.println("[CrazySpawnerAI] Created backup: " + backupFile.getPath());
+		}
 	}
 
 	public void save()
 	{
-		final YamlConfiguration config = new YamlConfiguration();
+		final CrazyYamlConfiguration config = new CrazyYamlConfiguration();
 		final Set<RouteConnection> connections = new HashSet<>();
 		for (final RoutePoint point : points.values())
 		{
