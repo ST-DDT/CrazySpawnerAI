@@ -87,7 +87,7 @@ public class NavigationImpl implements Navigation
 	@Override
 	public boolean tryMoveTo(final Location target, final double speed)
 	{
-		if (!target.getWorld().equals(target.getWorld()))
+		if (!creature.getBukkitEntity().getWorld().equals(target.getWorld()))
 			throw new IllegalArgumentException("Cannot walk to another world!");
 		return creature.getNavigation().a(target.getX(), target.getY(), target.getZ(), speed);
 	}
@@ -95,7 +95,7 @@ public class NavigationImpl implements Navigation
 	@Override
 	public boolean tryMoveTo(final Entity target, final double speed)
 	{
-		if (!target.getLocation().getWorld().equals(target.getWorld()))
+		if (!creature.getBukkitEntity().getWorld().equals(target.getWorld()))
 			throw new IllegalArgumentException("Cannot walk to another world!");
 		return creature.getNavigation().a(getHandle(target), speed);
 	}
