@@ -98,7 +98,7 @@
 			<plugin>
 				<groupId>de.st_ddt.crazy.maven</groupId>
 				<artifactId>CrazyLocalesUpdater</artifactId>
-				<version>1.0.0</version>
+				<version>1.1.0</version>
 				<executions>
 					<execution>
 						<phase>generate-resources</phase>
@@ -107,11 +107,6 @@
 						</goals>
 					</execution>
 				</executions>
-				<configuration>
-					<includeArtifacts>
-						<includeArtifact>CrazyAPI</includeArtifact>
-					</includeArtifacts>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
