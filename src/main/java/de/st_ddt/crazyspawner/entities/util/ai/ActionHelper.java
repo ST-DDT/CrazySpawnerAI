@@ -49,10 +49,9 @@ public final class ActionHelper
 		{
 			actionHelper.clearGoals(entity);
 		}
-		catch (final Exception e)
+		catch (final Throwable t)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalStateException(t);
 		}
 	}
 
@@ -129,10 +128,9 @@ public final class ActionHelper
 		{
 			actionHelper.addGoal(creature, unwrap(goal), priority);
 		}
-		catch (final Exception e)
+		catch (final Throwable t)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalStateException(t);
 		}
 	}
 
@@ -149,11 +147,9 @@ public final class ActionHelper
 		{
 			return actionHelper.getGoals(entity);
 		}
-		catch (final Exception e)
+		catch (final Throwable t)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
+			throw new IllegalStateException(t);
 		}
 	}
 
