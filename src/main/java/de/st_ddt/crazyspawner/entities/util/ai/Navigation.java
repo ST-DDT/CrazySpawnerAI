@@ -40,7 +40,7 @@ public interface Navigation
 	public void setBreakDoors(boolean breakDoors);
 
 	/**
-	 * Sets whether the entity can enter open doors.
+	 * Sets whether the entity can enter/open doors.
 	 * 
 	 * @param enterDoors
 	 *            Whether the entity can enter open doors.
@@ -180,7 +180,7 @@ public interface Navigation
 
 	/**
 	 * Searches for a random location next to the {@link Creature} within the given radius.<br>
-	 * This method utilizes minecraft's RandomPosituibGenerator.
+	 * This method utilizes minecraft's RandomPositionGenerator.
 	 * 
 	 * @param horizontalOffset
 	 *            The maximum horizontal offset for the location-

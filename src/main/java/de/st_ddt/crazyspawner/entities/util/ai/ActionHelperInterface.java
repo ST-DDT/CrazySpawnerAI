@@ -57,7 +57,7 @@ public interface ActionHelperInterface
 	 * Returns a navigation controller for the given creature.
 	 * 
 	 * @param entity
-	 *            The entity which navigation controller should be returned,
+	 *            The entity which navigation controller should be returned.
 	 * @return The navigation controller for this entity.
 	 */
 	public Navigation getNavigation(Creature entity);
