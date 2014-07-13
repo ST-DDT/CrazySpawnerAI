@@ -19,6 +19,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
@@ -28,6 +29,7 @@ import de.st_ddt.crazyutil.comparators.PathLengthComparator;
 import de.st_ddt.crazyutil.comparators.RoutePointDistanceComparator;
 import de.st_ddt.crazyutil.conditions.ConditionHelper;
 import de.st_ddt.crazyutil.config.CrazyYamlConfiguration;
+import de.st_ddt.crazyutil.paramitrisable.LocationParamitrisable;
 
 public class RouteMap
 {
@@ -175,6 +177,31 @@ public class RouteMap
 			return null;
 		Collections.sort(list, new RoutePointDistanceComparator(location));
 		return list.get(0);
+	}
+
+	/**
+	 * Searches for all {@link RoutePoint}s that are within the given distance from the center.
+	 * 
+	 * @param center
+	 *            The center {@link Location} of the search radius
+	 * @param distance
+	 *            The maximum allowed distance from the center that must be inside the range of the {@link RoutePoint}.
+	 * @return A list of {@link RoutePoint}s sorted by their distance from the given center.
+	 */
+	public List<RoutePoint> searchNearbyRoutePoints(final Location center, final double distance)
+	{
+		final List<RoutePoint> res = new ArrayList<>();
+		// Some additional range to account for the RoutePoint size.
+		for (final Chunk chunk : LocationParamitrisable.getChunkWithinSoftRange(center, distance + 8))
+		{
+			final Set<RoutePoint> points = pointsPerChunk.get(new CoordinateKey(chunk.getX(), chunk.getZ()));
+			if (points != null)
+				for (final RoutePoint point : points)
+					if (point.getLocation().distance(center) <= distance + point.getSize())
+						res.add(point);
+		}
+		Collections.sort(res, new RoutePointDistanceComparator(center));
+		return res;
 	}
 
 	/**
