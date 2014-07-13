@@ -140,6 +140,16 @@ public class RouteMap
 	}
 
 	/**
+	 * Returns all {@link RoutePoint}s managed by this {@link RouteMap}.
+	 * 
+	 * @return A collection of all {@link RoutePoint}.
+	 */
+	public Collection<RoutePoint> getPoints()
+	{
+		return points.values();
+	}
+
+	/**
 	 * Searches the closest {@link RoutePoint} next to the given location within chunkSearchRange.
 	 * 
 	 * @param location
