@@ -20,6 +20,8 @@ import de.st_ddt.crazyutil.paramitrisable.LocationParamitrisable;
 public class RoutePoint implements ConfigurationSaveable
 {
 
+	public final static double MINSIZE = 0.1;
+	public final static double DEFAULTSIZE = 0.5;
 	private static int newID = 1;
 	private final int id;
 	private final Location location;
@@ -35,12 +37,12 @@ public class RoutePoint implements ConfigurationSaveable
 
 	public RoutePoint(final Location location, final String name)
 	{
-		this(location, name, new Condition_TRUE(), 0);
+		this(location, name, new Condition_TRUE(), DEFAULTSIZE);
 	}
 
 	public RoutePoint(final Location location, final Condition accessCondition)
 	{
-		this(location, null, accessCondition, 0);
+		this(location, null, accessCondition, DEFAULTSIZE);
 	}
 
 	public RoutePoint(final Location location, final String name, final Condition accessCondition, final double size)
@@ -52,7 +54,7 @@ public class RoutePoint implements ConfigurationSaveable
 		this.location.setPitch(0);
 		this.name = name;
 		this.accessCondition = ExtendedConditionHelper.simpleSecure(accessCondition, LivingEntity.class);
-		this.size = size;
+		this.size = Math.min(size, 0.1);
 	}
 
 	public RoutePoint(final World world, final ConfigurationSection config)
@@ -76,7 +78,7 @@ public class RoutePoint implements ConfigurationSaveable
 			condition = new Condition_TRUE();
 		}
 		this.accessCondition = condition;
-		this.size = config.getDouble("size", 1);
+		this.size = Math.max(config.getDouble("size", DEFAULTSIZE), MINSIZE);
 	}
 
 	public int getId()
@@ -142,6 +144,6 @@ public class RoutePoint implements ConfigurationSaveable
 	@Override
 	public String toString()
 	{
-		return "RoutePoint{id: " + id + "; " + (name == null ? "" : "name: " + name + "; ") + "location: " + location.toString() + "}";
+		return "RoutePoint{id: " + id + "; " + (name == null ? "" : "name: " + name + "; ") + "location: " + location.toString() + "; size: " + size + "}";
 	}
 }
