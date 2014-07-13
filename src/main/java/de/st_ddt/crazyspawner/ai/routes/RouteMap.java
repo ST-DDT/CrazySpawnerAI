@@ -111,7 +111,6 @@ public class RouteMap
 			connection.save(config, "connections.c" + (cCount++));
 		try
 		{
-			file.getParentFile().mkdirs();
 			config.save(file);
 		}
 		catch (final IOException e)
